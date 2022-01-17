@@ -9,6 +9,14 @@ public class MenuController : MonoBehaviour
     [SerializeField] Text header;
     [SerializeField] Text key;
     [SerializeField] Text vel;
+    [SerializeField] Image BassDrum;
+    [SerializeField] Image Snare;
+    [SerializeField] Image Tom1;
+    [SerializeField] Image Tom2;
+    [SerializeField] Image Tom3;
+    [SerializeField] Image Crash;
+    [SerializeField] Image Ride;
+    [SerializeField] Image HiHat;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +47,40 @@ public class MenuController : MonoBehaviour
         vel.text = velocity.ToString();
         header.color = Color.green;
 
+        switch (note) { 
+            case 36:
+                BassDrum.color = Color.green;
+                key.text = "BOMBO";
+                break;
+            case 38:
+                Snare.color = Color.green;
+                key.text = "CAIXA";
+                break;
+            case 48:
+                Tom1.color = Color.green;
+                key.text = "TOM1";
+                break;
+            case 45:
+                Tom2.color = Color.green;
+                key.text = "TOM2";
+                break;
+            case 43:
+                Tom3.color = Color.green;
+                key.text = "TOM3";
+                break;
+            case 49:
+                Crash.color = Color.green;
+                key.text = "CRASH";
+                break;
+            case 51:
+                Ride.color = Color.green;
+                key.text = "RIDE";
+                break;
+            case 46:
+                HiHat.color = Color.green;
+                key.text = "HI-HAT";
+                break;
+        }
         Debug.Log("NoteOn: " + channel + ", " + note + ", " + velocity);
     }
 
@@ -46,6 +88,34 @@ public class MenuController : MonoBehaviour
     {
         Debug.Log("NoteOff: " + channel + ", " + note);
         header.color = Color.white;
+
+        switch (note)
+        {
+            case 36:
+                BassDrum.color = Color.grey;
+                break;
+            case 38:
+                Snare.color = Color.grey;
+                break;
+            case 48:
+                Tom1.color = Color.grey;
+                break;
+            case 45:
+                Tom2.color = Color.grey;
+                break;
+            case 43:
+                Tom3.color = Color.grey;
+                break;
+            case 49:
+                Crash.color = Color.grey;
+                break;
+            case 51:
+                Ride.color = Color.grey;
+                break;
+            case 46:
+                HiHat.color = Color.grey;
+                break;
+        }
     }
 
     private void KnobOn(MidiChannel channel, int knob, float value)
