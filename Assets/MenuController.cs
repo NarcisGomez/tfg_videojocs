@@ -55,30 +55,37 @@ public class MenuController : MonoBehaviour
             case 38:
                 Snare.color = Color.green;
                 key.text = "CAIXA";
+
                 break;
             case 48:
                 Tom1.color = Color.green;
                 key.text = "TOM1";
+
                 break;
             case 45:
                 Tom2.color = Color.green;
                 key.text = "TOM2";
+
                 break;
             case 43:
                 Tom3.color = Color.green;
                 key.text = "TOM3";
+
                 break;
             case 49:
                 Crash.color = Color.green;
                 key.text = "CRASH";
+
                 break;
             case 51:
                 Ride.color = Color.green;
                 key.text = "RIDE";
+
                 break;
             case 46:
                 HiHat.color = Color.green;
-                key.text = "HI-HAT";
+                key.text = "HIHAT";
+
                 break;
         }
         Debug.Log("NoteOn: " + channel + ", " + note + ", " + velocity);
