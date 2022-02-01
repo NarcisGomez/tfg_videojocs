@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MidiJack;
+using MidiPlayerTK;
 
 public class MenuController : MonoBehaviour
 {
@@ -17,9 +17,11 @@ public class MenuController : MonoBehaviour
     [SerializeField] Image Crash;
     [SerializeField] Image Ride;
     [SerializeField] Image HiHat;
+    [SerializeField] MidiFilePlayer midiFilePlayer;
     // Start is called before the first frame update
     void Start()
     {
+        midiFilePlayer.OnEventNotesMidi.AddListener(NotesToPlay);
     }
 
     // Update is called once per frame
@@ -128,5 +130,22 @@ public class MenuController : MonoBehaviour
     private void KnobOn(MidiChannel channel, int knob, float value)
     {
         Debug.Log("Knob: " + channel + ", " + knob + ", " + value);
+    }
+
+    public void pene() { Debug.Log("HOLA"); }
+
+    public void NotesToPlay(List<MPTKEvent> mptkEvents)
+    {
+        Debug.Log("Received " + mptkEvents.Count + " MIDI Events");
+        // Loop on each MIDI events
+        foreach (MPTKEvent mptkEvent in mptkEvents)
+        {
+            // Log if event is a note on
+            if (mptkEvent.Command == MPTKCommand.NoteOn)
+                Debug.Log($"Note on Time:{mptkEvent.RealTime} millisecond  Note:{mptkEvent.Value}  Duration:{mptkEvent.Duration} millisecond  Velocity:{mptkEvent.Velocity}");
+
+            // Uncomment to display all MIDI events
+            // Debug.Log(mptkEvent.ToString());
+        }
     }
 }
