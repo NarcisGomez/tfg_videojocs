@@ -6,9 +6,12 @@ using MidiPlayerTK;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] Text header;
-    [SerializeField] Text key;
-    [SerializeField] Text vel;
+    [SerializeField] Text instrument;
+    [SerializeField] Text midi;
+    [SerializeField] Text instKey;
+    [SerializeField] Text instVel;
+    [SerializeField] Text midiKey;
+    [SerializeField] Text midiVel;
     [SerializeField] Image BassDrum;
     [SerializeField] Image Snare;
     [SerializeField] Image Tom1;
@@ -24,69 +27,64 @@ public class MenuController : MonoBehaviour
         midiFilePlayer.OnEventNotesMidi.AddListener(NotesToPlay);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnEnable()
     {
         MidiMaster.noteOnDelegate += NoteOn;
         MidiMaster.noteOffDelegate += NoteOff;
-        MidiMaster.knobDelegate += KnobOn;
+        //MidiMaster.knobDelegate += KnobOn;
     }
 
     private void OnDisable()
     {
         MidiMaster.noteOnDelegate -= NoteOn;
         MidiMaster.noteOffDelegate -= NoteOff;
-        MidiMaster.knobDelegate -= KnobOn;
+        //MidiMaster.knobDelegate -= KnobOn;
     }
 
     private void NoteOn(MidiChannel channel, int note, float velocity)
     {
-        key.text = note.ToString();
-        vel.text = velocity.ToString();
-        header.color = Color.green;
+        instKey.text = note.ToString();
+        instVel.text = velocity.ToString();
+        instrument.color = Color.green;
 
         switch (note) { 
             case 36:
                 BassDrum.color = Color.green;
-                key.text = "BOMBO";
+                instKey.text = "BOMBO";
                 break;
             case 38:
                 Snare.color = Color.green;
-                key.text = "CAIXA";
+                instKey.text = "CAIXA";
 
                 break;
             case 48:
                 Tom1.color = Color.green;
-                key.text = "TOM1";
+                instKey.text = "TOM1";
 
                 break;
             case 45:
                 Tom2.color = Color.green;
-                key.text = "TOM2";
+                instKey.text = "TOM2";
 
                 break;
             case 43:
                 Tom3.color = Color.green;
-                key.text = "TOM3";
+                instKey.text = "TOM3";
 
                 break;
             case 49:
                 Crash.color = Color.green;
-                key.text = "CRASH";
+                instKey.text = "CRASH";
 
                 break;
             case 51:
                 Ride.color = Color.green;
-                key.text = "RIDE";
+                instKey.text = "RIDE";
 
                 break;
             case 46:
                 HiHat.color = Color.green;
-                key.text = "HIHAT";
+                instKey.text = "HIHAT";
 
                 break;
         }
@@ -96,7 +94,7 @@ public class MenuController : MonoBehaviour
     private void NoteOff(MidiChannel channel, int note)
     {
         Debug.Log("NoteOff: " + channel + ", " + note);
-        header.color = Color.white;
+        instrument.color = Color.white;
 
         switch (note)
         {
@@ -127,25 +125,26 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void KnobOn(MidiChannel channel, int knob, float value)
-    {
-        Debug.Log("Knob: " + channel + ", " + knob + ", " + value);
-    }
-
-    public void pene() { Debug.Log("HOLA"); }
+    //private void KnobOn(MidiChannel channel, int knob, float value)
+    //{
+    //    Debug.Log("Knob: " + channel + ", " + knob + ", " + value);
+    //}
 
     public void NotesToPlay(List<MPTKEvent> mptkEvents)
     {
         Debug.Log("Received " + mptkEvents.Count + " MIDI Events");
-        // Loop on each MIDI events
         foreach (MPTKEvent mptkEvent in mptkEvents)
         {
             // Log if event is a note on
             if (mptkEvent.Command == MPTKCommand.NoteOn)
+                midi.color = Color.green;
+                midiKey.text = mptkEvent.Value.ToString();
+                midiVel.text = mptkEvent.Velocity.ToString();
                 Debug.Log($"Note on Time:{mptkEvent.RealTime} millisecond  Note:{mptkEvent.Value}  Duration:{mptkEvent.Duration} millisecond  Velocity:{mptkEvent.Velocity}");
 
             // Uncomment to display all MIDI events
             // Debug.Log(mptkEvent.ToString());
         }
+        midi.color = Color.black;
     }
 }
