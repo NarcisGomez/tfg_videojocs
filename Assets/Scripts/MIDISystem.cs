@@ -6,7 +6,7 @@ using TMPro;
 using MidiPlayerTK;
 
 public class MIDISystem : MonoBehaviour
-{
+{ 
     [SerializeField] TMP_Text instrument;
     [SerializeField] TMP_Text midi;
     [SerializeField] TMP_Text instKey;
@@ -145,13 +145,11 @@ public void NotesToPlay(List<MPTKEvent> mptkEvents)
 
     public void StartPlayingMidi()
     {
-        Debug.Log("Play");
         midiFilePlayer.MPTK_Play();
     }
 
     public void StopPlayingMidi()
     {
-        Debug.Log("Stop");
         midiFilePlayer.MPTK_Stop();
     }
 }
