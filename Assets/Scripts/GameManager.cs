@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour
         currentSong = song;
     }
 
+    public SongFile GetSong()
+    {
+        if(currentSong != null ) return currentSong;
+        throw new System.Exception("No song to play");
+    }
+
     public void setTempoMultiplier(float value)
     {
         tempoMultiplier = value;
