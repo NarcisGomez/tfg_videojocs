@@ -12,7 +12,7 @@ public class BPM : MonoBehaviour
     int tickCount;
     float beatInterval;
     float beatTimer;
-    [SerializeField] AudioManager audioManager;
+    AudioManager audioManager;
     [SerializeField] float bpm;
     [SerializeField] bool muteClick;
     [SerializeField] TMP_Text tempoText;
@@ -33,6 +33,7 @@ public class BPM : MonoBehaviour
 
     void Start()
     {
+        audioManager = AudioManager.getInstance();
         muteClick = true;
         prevCount = 4;
         tickCount = 0;

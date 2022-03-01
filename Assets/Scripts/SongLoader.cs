@@ -3,7 +3,7 @@ using TMPro;
 
 public class SongLoader : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;
+    GameManager gameManager;
     [SerializeField] GameObject container;
     [SerializeField] Transform listPanel;
     [SerializeField] TMP_Text songTitle;
@@ -11,6 +11,7 @@ public class SongLoader : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameManager.getInstance();
         LoadStructure();
     }
 
@@ -18,7 +19,7 @@ public class SongLoader : MonoBehaviour
     void LoadStructure()
     {
         song = gameManager.GetSong();
-        Debug.Log(song.ToString());
+
         for (int i = 0; i < song.sections.Length; i++)
         {
             GameObject item = Instantiate<GameObject>(container);

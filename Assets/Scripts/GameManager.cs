@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-    public void SetSong(SongFile song)
+    public void SetSong(string title, int tempo, string[] sections, int[] loops)
     {
-        currentSong = song;
+        currentSong = new SongFile(title, tempo, sections, loops);
     }
 
     public SongFile GetSong()

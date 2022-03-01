@@ -15,4 +15,9 @@ public class SongFile
         this.sections = sections;
         this.loops = loops;
     }
+
+    public override string ToString()
+    {
+        return title + tempo;
+    }
 }
