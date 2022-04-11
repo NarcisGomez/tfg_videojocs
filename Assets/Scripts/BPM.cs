@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using MidiPlayerTK;
 
 public class BPM : MonoBehaviour
 {
@@ -13,9 +14,12 @@ public class BPM : MonoBehaviour
     float beatInterval;
     float beatTimer;
     AudioManager audioManager;
-    [SerializeField] float bpm;
+    GameManager gameManager;
+    public float bpm;
     [SerializeField] bool muteClick;
     [SerializeField] TMP_Text tempoText;
+    [SerializeField] MidiFilePlayer midiPlayer;
+    [SerializeField] SongLoader songLoader;
 
     public static BPM getInstance()
     {
@@ -34,6 +38,8 @@ public class BPM : MonoBehaviour
     void Start()
     {
         audioManager = AudioManager.getInstance();
+        gameManager = GameManager.getInstance();
+        bpm = gameManager.GetSong().tempo;
         muteClick = true;
         prevCount = 4;
         tickCount = 0;
@@ -57,20 +63,27 @@ public class BPM : MonoBehaviour
             beatFull = true;
             beatCountFull++;
         }
-        if(beatFull)
+        if (beatFull)
         {
             updateTick();
             if (prevCount > 0)
-            {
+            { 
+                prevCount--;
                 audioManager.Play("tick");
+
+            }
+            else if(prevCount == 0)
+            {
+                Debug.Log(midiPlayer.MPTK_MidiLoaded);
+                midiPlayer.MPTK_Play();
+                midiPlayer.MPTK_TickCurrent = midiPlayer.MPTK_TickFirstNote;
+                midiPlayer.MPTK_ChannelEnableSet(9, false);
                 prevCount--;
             }
             else if (!muteClick)
             {
                 audioManager.Play("tick");
             }
-
-            
         }
     }
 
@@ -82,9 +95,17 @@ public class BPM : MonoBehaviour
     void updateTick()
     {
         tickCount++;
-        if (tickCount > 4) tickCount = 1;
+        if (tickCount > 4)
+        {
+            songLoader.WholeBar();
+            tickCount = 1;
+        }
         tempoText.text = tickCount.ToString();
 
     }
 
+    public void MuteDrums()
+    {
+        midiPlayer.MPTK_ChannelEnableSet(9, !midiPlayer.MPTK_ChannelEnableGet(9));
+    }
 }

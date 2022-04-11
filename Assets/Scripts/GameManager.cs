@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-    public void SetSong(string title, int tempo, string[] sections, int[] loops)
+    public void SetSong(SongFile song)
     {
-        currentSong = new SongFile(title, tempo, sections, loops);
+        currentSong = song;
     }
 
     public SongFile GetSong()
@@ -38,10 +38,9 @@ public class GameManager : MonoBehaviour
         tempoMultiplier = value;
     }
 
-    
+    public void EndSong()
+    {
 
-    
-
-
+    }
 }
 

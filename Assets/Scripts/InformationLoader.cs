@@ -15,10 +15,10 @@ public class InformationLoader : MonoBehaviour
         songTitle.text = file.title;
         songTempo.text = file.tempo.ToString();
 
-        foreach (string s in file.sections)
+        for (int i = 0; i < file.sections.Length; i++)
         {
-            songSections.text += s + "\n";
-            songLoops.text += s + "\n";
+            songSections.text += file.sections[i] + "\n";
+            songLoops.text += file.loops[i] + "\n";
         }
     }
 }
