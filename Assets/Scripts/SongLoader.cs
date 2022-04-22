@@ -13,15 +13,24 @@ public class SongLoader : MonoBehaviour
     SongFile song;
     int currentIndex;
     SectionContainer currentItem;
+    Vector3 initialPosition;
 
     void Start()
     {
         gameManager = GameManager.getInstance();
         currentIndex = 0;
         LoadStructure();
+        initialPosition = listPanel.transform.position;
     }
 
-    // Update is called once per frame
+    void Update()
+    {
+        if (currentIndex != 0) {
+
+            listPanel.transform.position = Vector3.MoveTowards(listPanel.transform.position, new Vector3(initialPosition.x, initialPosition.y + (80 * currentIndex), initialPosition.z), 120 * Time.deltaTime);
+        }
+    }
+
     void LoadStructure()
     {
         song = gameManager.GetSong();
@@ -39,6 +48,7 @@ public class SongLoader : MonoBehaviour
         currentItem = sectionsList[currentIndex];
         currentItem.SetPump(true);
     }
+
     public void WholeBar()
     {
         TMP_Text[] textArray = currentItem.GetComponentsInChildren<TMP_Text>();
