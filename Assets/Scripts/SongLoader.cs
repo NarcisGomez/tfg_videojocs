@@ -63,4 +63,9 @@ public class SongLoader : MonoBehaviour
             currentItem.SetPump(true);
         }
     }
+
+    public void Tick()
+    {
+        currentItem.Tick();
+    }
 }

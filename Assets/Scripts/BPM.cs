@@ -74,7 +74,6 @@ public class BPM : MonoBehaviour
             }
             else if(prevCount == 0)
             {
-                Debug.Log(midiPlayer.MPTK_MidiLoaded);
                 midiPlayer.MPTK_Play();
                 midiPlayer.MPTK_TickCurrent = midiPlayer.MPTK_TickFirstNote;
                 midiPlayer.MPTK_ChannelEnableSet(9, false);
@@ -83,6 +82,10 @@ public class BPM : MonoBehaviour
             else if (!muteClick)
             {
                 audioManager.Play("tick");
+            }
+            else
+            {
+                songLoader.Tick();
             }
         }
     }

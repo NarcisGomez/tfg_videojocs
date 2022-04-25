@@ -55,14 +55,17 @@ public class SectionContainer : MonoBehaviour
     {
         if (color)
         {
-            if (background.color.Equals(Color.blue)) { ToggleColor(); }
             background.color = Color.Lerp(background.color, Color.blue, Time.deltaTime * tempo * 0.1f);
         }
         else
         {
-            if (background.color.Equals(Color.red)) { ToggleColor(); }
             background.color = Color.Lerp(background.color, Color.red, Time.deltaTime * tempo * 0.1f);
         }
         
+    }
+
+    public void Tick()
+    {
+        ToggleColor();
     }
 }
