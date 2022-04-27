@@ -61,7 +61,7 @@ namespace MidiPlayerTK
                 }
                 else
                 {
-                    path = "MidiPlayer/Resources/";
+                    path = "Resources/";
                     //Debug.Log($"MPTK_PathToResources (default): {path}");
                 }
                 return path;

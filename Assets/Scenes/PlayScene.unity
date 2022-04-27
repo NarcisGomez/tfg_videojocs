@@ -945,7 +945,7 @@ MonoBehaviour:
   OnEventSynthStarted:
     m_PersistentCalls:
       m_Calls: []
-  showMidiInfo: 1
+  showMidiInfo: 0
   showSynthParameter: 0
   showSpatialization: 0
   showUnitySynthParameter: 1
@@ -959,8 +959,8 @@ MonoBehaviour:
   spatialize: 0
   AudioBufferLenght: 0
   AudioNumBuffers: 0
-  midiNameToPlay: Nirvana - Smells Like Teen Spirit
-  midiIndexToPlay: 68
+  midiNameToPlay: Nirvana
+  midiIndexToPlay: 0
   MPTK_StartPlayAtFirstNote: 0
   speed: 1
   durationEditorModeOnly: 
