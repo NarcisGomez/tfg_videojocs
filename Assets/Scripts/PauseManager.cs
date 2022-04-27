@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField]private GameObject pauseMenu;
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] BPM bpm;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
             TogglePause();
+            bpm.TogglePause();
         }
     }
     private void TogglePause()

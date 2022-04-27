@@ -14,6 +14,7 @@ public class SongLoader : MonoBehaviour
     int currentIndex;
     SectionContainer currentItem;
     Vector3 initialPosition;
+    bool entranceActive;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class SongLoader : MonoBehaviour
         currentIndex = 0;
         LoadStructure();
         initialPosition = listPanel.transform.position;
+        entranceActive = true;
     }
 
     void Update()
@@ -46,20 +48,36 @@ public class SongLoader : MonoBehaviour
             sectionsList.Add(item);
         }
         currentItem = sectionsList[currentIndex];
-        currentItem.SetPump(true);
+        
     }
 
     public void WholeBar()
     {
-        TMP_Text[] textArray = currentItem.GetComponentsInChildren<TMP_Text>();
-        int loops = int.Parse(textArray[2].text);
-        loops = loops - 1;
-        textArray[2].text = loops.ToString();
-        if (loops == 0)
+        if (!entranceActive)
         {
-            currentItem.SetFade(true);
-            currentIndex++;
-            currentItem = sectionsList[currentIndex];
+            TMP_Text[] textArray = currentItem.GetComponentsInChildren<TMP_Text>();
+            int loops = int.Parse(textArray[2].text);
+            loops = loops - 1;
+            textArray[2].text = loops.ToString();
+            if (loops == 0)
+            {
+                currentItem.SetFade(true);
+                currentIndex++;
+                if (currentIndex < sectionsList.Count)
+                {
+                    currentItem = sectionsList[currentIndex];
+                    currentItem.SetPump(true);
+                }
+                else
+                {
+                    gameManager.EndSong();
+                }
+                
+            }
+        }
+        if (entranceActive)
+        {
+            entranceActive = false;
             currentItem.SetPump(true);
         }
     }

@@ -1371,6 +1371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1941509974}
+  bpm: {fileID: 60249100}
 --- !u!1 &790642943
 GameObject:
   m_ObjectHideFlags: 0

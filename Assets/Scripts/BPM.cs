@@ -15,6 +15,7 @@ public class BPM : MonoBehaviour
     float beatTimer;
     AudioManager audioManager;
     GameManager gameManager;
+    bool paused;
     public float bpm;
     [SerializeField] bool muteClick;
     [SerializeField] TMP_Text tempoText;
@@ -43,12 +44,16 @@ public class BPM : MonoBehaviour
         muteClick = true;
         prevCount = 4;
         tickCount = 0;
+        paused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        BeatDetection();
+        if (!paused)
+        {
+            BeatDetection();
+        }
     }
 
     void BeatDetection()
@@ -76,7 +81,6 @@ public class BPM : MonoBehaviour
             {
                 midiPlayer.MPTK_Play();
                 midiPlayer.MPTK_TickCurrent = midiPlayer.MPTK_TickFirstNote;
-                midiPlayer.MPTK_ChannelEnableSet(9, false);
                 prevCount--;
             }
             else if (!muteClick)
@@ -88,11 +92,6 @@ public class BPM : MonoBehaviour
                 songLoader.Tick();
             }
         }
-    }
-
-    public void toggleMute()
-    {
-        muteClick = !muteClick;
     }
 
     void updateTick()
@@ -110,5 +109,23 @@ public class BPM : MonoBehaviour
     public void MuteDrums()
     {
         midiPlayer.MPTK_ChannelEnableSet(9, !midiPlayer.MPTK_ChannelEnableGet(9));
+    }
+
+    public void TogglePause()
+    {
+        if (paused)
+        {
+            midiPlayer.MPTK_UnPause();
+        }
+        else
+        {
+            midiPlayer.MPTK_Pause();
+        }
+        paused = !paused;
+    }
+
+    public void toggleMute()
+    {
+        muteClick = !muteClick;
     }
 }
