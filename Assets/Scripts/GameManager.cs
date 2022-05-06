@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     [SerializeField] private SongFile currentSong;
     [SerializeField] private float tempoMultiplier;
+    string currentSection;
 
     public static GameManager getInstance()
     {
@@ -30,6 +31,17 @@ public class GameManager : MonoBehaviour
     {
         if(currentSong != null ) return currentSong;
         throw new System.Exception("No song to play");
+    }
+
+    public void SetSection(string section)
+    {
+        currentSection = section;
+    }
+
+    public string GetSection()
+    {
+        if (currentSong != null) return currentSection;
+        throw new System.Exception("No section selected");
     }
 
     public void setTempoMultiplier(float value)

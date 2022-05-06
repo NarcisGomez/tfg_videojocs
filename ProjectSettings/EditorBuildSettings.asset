@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: b24e714fc921746adbacb89011f89045
+  - enabled: 1
+    path: Assets/Scenes/LoopScene.unity
+    guid: 9d112a98884a24821ac27660e297288e
   m_configObjects: {}

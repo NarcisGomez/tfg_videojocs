@@ -9,6 +9,8 @@ public class JsonLoader : MonoBehaviour
     [SerializeField] Button button;
     [SerializeField] InformationLoader informationLoader;
     [SerializeField] GameObject tempoContainer;
+    [SerializeField] Button playButton;
+    [SerializeField] Button practiceButton;
 
     void Start()
     {
@@ -28,6 +30,8 @@ public class JsonLoader : MonoBehaviour
             b.onClick.AddListener(() => { informationLoader.LoadInformation(file); });
             b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { tempoContainer.SetActive(true); });
+            b.onClick.AddListener(() => { playButton.gameObject.SetActive(true); });
+            b.onClick.AddListener(() => { practiceButton.gameObject.SetActive(true); });
             TMP_Text child = b.GetComponentInChildren<TMP_Text>();
             child.text = file.title;
             
