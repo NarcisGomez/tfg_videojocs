@@ -14,7 +14,7 @@ public class JsonLoader : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.GetInstance();
         LoadList();
     }
 

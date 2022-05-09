@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-    [SerializeField] private SongFile currentSong;
-    [SerializeField] private float tempoMultiplier;
+    private SongFile currentSong;
+    private float tempoMultiplier;
     string currentSection;
 
-    public static GameManager getInstance()
+    public static GameManager GetInstance()
     {
         if (instance != null) return instance;
         throw new System.Exception("There is no Game Manager");

@@ -39,7 +39,7 @@ public class BPM : MonoBehaviour
     void Start()
     {
         audioManager = AudioManager.getInstance();
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.GetInstance();
         bpm = gameManager.GetSong().tempo;
         muteClick = true;
         prevCount = 4;

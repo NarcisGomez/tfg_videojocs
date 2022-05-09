@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class BarDetector : MonoBehaviour
             {
                 foreach (NoteBehavior n in notes)
             {
-                if(n.GetId() == 38) {
+                if(n.GetId() == note) {
                     notes.Remove(n);
                     Destroy(n.gameObject);
                 }

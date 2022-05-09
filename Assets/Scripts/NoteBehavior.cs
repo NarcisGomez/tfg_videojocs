@@ -1,43 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class NoteBehavior : MonoBehaviour
 {
     int id;
-    Transform finalPosition;
+    [SerializeField] List<Sprite> images;
+    Vector3 finalPosition;
+    float spawnDistance;
     GameManager gameManager;
+
     int tempo;
 
     void Start()
     {
-        id = 38;
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.GetInstance();
         tempo = gameManager.GetSong().tempo;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, finalPosition.position, Time.deltaTime * tempo * 3);
+        //Update hardcoded number with barCount in the future
+        transform.position = Vector3.MoveTowards(transform.position, finalPosition, Time.deltaTime * (tempo * 4));
 
-        if(transform.position == finalPosition.position)
+        if(transform.position == finalPosition)
         {
             Destroy(gameObject);
         }
     }
-    public void Init(Transform end)
-    {
-        finalPosition = end;
-    }
 
-    public void SetPosition(Transform position)
+    public void SetPosition(Vector3 position)
     {
         finalPosition = position;
+    }
+
+    public void SetDistance(float distance)
+    {
+        spawnDistance = distance;
+    }
+
+    public void SetImage(string name)
+    {
+        Image image = gameObject.GetComponent<Image>();
+
+        switch (name)
+        {
+            case "quarter":
+                image.sprite = images[0];
+                break;
+            case "cross":
+                image.sprite = images[1];
+                break;
+            case "circle":
+                image.sprite = images[2];
+                break;
+            case "star":
+                image.sprite = images[3];
+                break;
+        }
     }
 
     public int GetId()
     {
         return id;
+    }
+
+    public void SetId(int id)
+    {
+        this.id = id;
     }
 }

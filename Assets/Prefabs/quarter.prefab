@@ -89,6 +89,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699b3b61fd7fb46a2bc48b583e038357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  images:
+  - {fileID: 21300000, guid: 4c52101a2bbab4152bde0218b502ccf3, type: 3}
+  - {fileID: 21300000, guid: d99c75960ce784fecb71e4aba7ccdcb3, type: 3}
+  - {fileID: 21300000, guid: 55e5e5c23e70f485082539bc9ad7ba82, type: 3}
+  - {fileID: 21300000, guid: 157c19b7760be4de2b39ed3aec0a9b03, type: 3}
 --- !u!61 &6376456632113233532
 BoxCollider2D:
   m_ObjectHideFlags: 0

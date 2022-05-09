@@ -18,7 +18,7 @@ public class SongLoader : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.getInstance();
+        gameManager = GameManager.GetInstance();
         currentIndex = 0;
         LoadStructure();
         initialPosition = listPanel.transform.position;

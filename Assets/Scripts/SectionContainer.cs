@@ -14,7 +14,7 @@ public class SectionContainer : MonoBehaviour
         fadeActive = false;
         pumpActive = false;
         background = GetComponent<Image>();
-        tempo = GameManager.getInstance().GetSong().tempo;
+        tempo = GameManager.GetInstance().GetSong().tempo;
     }
 
     void Update()
