@@ -11,7 +11,7 @@ public class PracticeManager : MonoBehaviour
     [SerializeField] TMP_Text sectionTitle;
     [SerializeField] Transform finishPoint;
     [SerializeField] GameObject quarter;
-    [SerializeField] MidiFilePlayer midiOutput;
+    [SerializeField] MidiFilePlayer midiLoader;
     [SerializeField] List<Transform> startingPoint;
     //List order
     //0 -> ride & crash
@@ -28,10 +28,16 @@ public class PracticeManager : MonoBehaviour
         
         gameManager = GameManager.GetInstance();
         drumChannel = gameManager.GetSong().drumChannel;
-        Debug.Log(drumChannel);
         songTitle.text = gameManager.GetSong().title;
         sectionTitle.text = gameManager.GetSection();
-        midiOutput.OnEventNotesMidi.AddListener(NotesToPlay);
+        midiLoader.OnEventNotesMidi.AddListener(NotesToPlay);
+        midiLoader.MPTK_Volume = 0;
+        midiLoader.MPTK_StartPlayAtFirstNote = true;
+        midiLoader.MPTK_Play();
+        NoteBehavior phantom = Instantiate(quarter, startingPoint[6]).GetComponent<NoteBehavior>();
+        phantom.SetImage("phantom");
+        phantom.SetPosition(new Vector3(finishPoint.position.x, startingPoint[6].position.y, finishPoint.position.z));
+        phantom.SetId(0);
     }
 
     void NotesToPlay(List<MPTKEvent> mptkEvents)
@@ -92,9 +98,7 @@ public class PracticeManager : MonoBehaviour
                 if(note != null)
                 {
                     note.SetId(mptkEvent.Value);
-                    note.SetDistance(finishPoint.position.x - startingPoint[0].position.x);
-                }
-                
+                } 
             }                
         }
     }

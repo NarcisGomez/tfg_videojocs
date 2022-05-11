@@ -7,9 +7,7 @@ public class NoteBehavior : MonoBehaviour
     int id;
     [SerializeField] List<Sprite> images;
     Vector3 finalPosition;
-    float spawnDistance;
     GameManager gameManager;
-
     int tempo;
 
     void Start()
@@ -34,11 +32,6 @@ public class NoteBehavior : MonoBehaviour
         finalPosition = position;
     }
 
-    public void SetDistance(float distance)
-    {
-        spawnDistance = distance;
-    }
-
     public void SetImage(string name)
     {
         Image image = gameObject.GetComponent<Image>();
@@ -56,6 +49,9 @@ public class NoteBehavior : MonoBehaviour
                 break;
             case "star":
                 image.sprite = images[3];
+                break;
+            case "phantom":
+                image.color = new Color(255f, 255f, 255f,0f);
                 break;
         }
     }

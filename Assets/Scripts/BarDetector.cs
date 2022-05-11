@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using MidiPlayerTK;
 
 public class BarDetector : MonoBehaviour
 {
     List<NoteBehavior> notes = new List<NoteBehavior>();
-    void Start()
-    {
-        
-    }
+    [SerializeField] MidiFilePlayer midiPlayer;
+
 
     public void HitNote(int note)
     {
@@ -27,6 +26,11 @@ public class BarDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.GetComponent<NoteBehavior>().GetId() == 0) {
+            midiPlayer.MPTK_StartPlayAtFirstNote = true;
+            midiPlayer.MPTK_Play();
+
+        }
         notes.Add(collision.gameObject.GetComponent<NoteBehavior>());
     }
 

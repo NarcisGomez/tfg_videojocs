@@ -1,11 +1,9 @@
 using UnityEngine;
 using MidiJack;
-using MidiPlayerTK;
 
 public class MIDISystem : MonoBehaviour
 {
     [SerializeField] BarDetector detector;
-    [SerializeField] MidiFilePlayer midiFilePlayer;
 
     private void OnEnable()
     {
@@ -33,15 +31,5 @@ public class MIDISystem : MonoBehaviour
                 detector.HitNote(note);
                 break;
         }
-    }
-
-    public void StartPlayingMidi()
-    {
-        midiFilePlayer.MPTK_Play();
-    }
-
-    public void StopPlayingMidi()
-    {
-        midiFilePlayer.MPTK_Stop();
     }
 }
