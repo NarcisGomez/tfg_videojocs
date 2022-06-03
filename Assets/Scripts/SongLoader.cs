@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -19,6 +18,7 @@ public class SongLoader : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
+        songTitle.text = gameManager.GetSong().title;
         currentIndex = 0;
         LoadStructure();
         initialPosition = listPanel.transform.position;

@@ -1,0 +1,30 @@
+{
+    "band": "Gorillaz",
+    "title": "Feel Good Inc",
+    "tempo": 139,
+    "drumChannel": 9,
+    "sections": [
+        "Intro",
+        "Verse",
+        "Bridge",
+        "Chorus",
+        "Rap 1",
+        "Intro",
+        "Pre-Chorus",
+        "Chorus",
+        "Rap 2",
+        "Ending"
+    ],
+    "loops": [
+        16,
+        16,
+        2,
+        18,
+        16,
+        8,
+        12,
+        18,
+        8,
+        8
+    ]
+}

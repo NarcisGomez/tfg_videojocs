@@ -6,6 +6,13 @@ public class BarDetector : MonoBehaviour
 {
     List<NoteBehavior> notes = new List<NoteBehavior>();
     [SerializeField] MidiFilePlayer midiPlayer;
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.GetInstance();
+        midiPlayer.MPTK_MidiName = gameManager.GetSong().GetSongName();
+    }
 
 
     public void HitNote(int note)

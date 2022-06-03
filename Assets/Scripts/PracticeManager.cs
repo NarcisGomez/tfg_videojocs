@@ -31,6 +31,7 @@ public class PracticeManager : MonoBehaviour
         songTitle.text = gameManager.GetSong().title;
         sectionTitle.text = gameManager.GetSection();
         midiLoader.OnEventNotesMidi.AddListener(NotesToPlay);
+        midiLoader.MPTK_MidiName = gameManager.GetSong().GetSongName();
         midiLoader.MPTK_Volume = 0;
         midiLoader.MPTK_StartPlayAtFirstNote = true;
         midiLoader.MPTK_Play();
@@ -50,10 +51,13 @@ public class PracticeManager : MonoBehaviour
                 switch (mptkEvent.Value)
                 {
                     case 35://Bass
+                    case 36:
                         note = Instantiate(quarter, startingPoint[6]).GetComponent<NoteBehavior>();
                         note.SetImage("quarter");
                         note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[6].position.y, finishPoint.position.z));
                         break;
+                    case 40:
+                    case 39:
                     case 38://Snare
                         note = Instantiate(quarter, startingPoint[4]).GetComponent<NoteBehavior>();
                         note.SetImage("quarter");
@@ -69,6 +73,7 @@ public class PracticeManager : MonoBehaviour
                         note.SetImage("quarter");
                         note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[3].position.y, finishPoint.position.z));
                         break;
+                    case 41:
                     case 43://Tom3
                         note = Instantiate(quarter, startingPoint[5]).GetComponent<NoteBehavior>();
                         note.SetImage("quarter");
@@ -85,6 +90,7 @@ public class PracticeManager : MonoBehaviour
                         note.SetImage("cross");
                         note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[0].position.y, finishPoint.position.z));
                         break;
+                    case 42:
                     case 44:
                     case 46://HiHat
                         note = Instantiate(quarter, startingPoint[1]).GetComponent<NoteBehavior>();

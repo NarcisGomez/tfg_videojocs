@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using MidiPlayerTK;
@@ -41,6 +39,7 @@ public class BPM : MonoBehaviour
         audioManager = AudioManager.getInstance();
         gameManager = GameManager.GetInstance();
         bpm = gameManager.GetSong().tempo;
+        midiPlayer.MPTK_MidiName = gameManager.GetSong().GetSongName();
         muteClick = true;
         prevCount = 4;
         tickCount = 0;

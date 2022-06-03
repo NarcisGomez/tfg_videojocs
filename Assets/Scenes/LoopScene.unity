@@ -690,8 +690,8 @@ MonoBehaviour:
   spatialize: 0
   AudioBufferLenght: 0
   AudioNumBuffers: 0
-  midiNameToPlay: Nirvana - Smells Like Teen Spirit
-  midiIndexToPlay: 68
+  midiNameToPlay: Gorillaz - Feel Good Inc
+  midiIndexToPlay: 1
   MPTK_StartPlayAtFirstNote: 0
   speed: 1
   durationEditorModeOnly: 
@@ -1137,8 +1137,8 @@ MonoBehaviour:
   spatialize: 0
   AudioBufferLenght: 0
   AudioNumBuffers: 0
-  midiNameToPlay: Nirvana - Smells Like Teen Spirit
-  midiIndexToPlay: 68
+  midiNameToPlay: Gorillaz - Feel Good Inc
+  midiIndexToPlay: 1
   MPTK_StartPlayAtFirstNote: 0
   speed: 1
   durationEditorModeOnly: 

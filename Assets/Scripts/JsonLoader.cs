@@ -18,7 +18,7 @@ public class JsonLoader : MonoBehaviour
         LoadList();
     }
 
-    void LoadList()
+    public void LoadList()
     {
         TextAsset[] list = Resources.LoadAll<TextAsset>("JSONFiles");
         foreach (TextAsset item in list)
@@ -33,7 +33,7 @@ public class JsonLoader : MonoBehaviour
             b.onClick.AddListener(() => { playButton.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { practiceButton.gameObject.SetActive(true); });
             TMP_Text child = b.GetComponentInChildren<TMP_Text>();
-            child.text = file.title;
+            child.text = file.GetSongName();
             
         }
     }
