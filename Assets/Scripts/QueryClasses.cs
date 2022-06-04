@@ -2,6 +2,41 @@ using System.Collections.Generic;
 using System;
 
 [Serializable]
+public class RefreshTokenData
+{
+    public RefreshToken data;
+}
+[Serializable]
+public class RefreshToken 
+{
+    public Refresh refreshAccessToken;
+}
+[Serializable]
+public class Refresh
+{
+    public string accessToken;
+    public string username;
+}
+
+[Serializable]
+public class SignInData
+{
+    public GetSignIn data;
+}
+[Serializable]
+public class GetSignIn
+{
+    public SignIn signIn;
+}
+[Serializable]
+public class SignIn
+{
+    public string accessToken;
+    public string refreshToken;
+    public string username;
+}
+
+[Serializable]
 public class GetSongData
 {
     public GetSong data;
