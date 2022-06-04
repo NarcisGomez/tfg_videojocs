@@ -1,0 +1,48 @@
+{
+    "band": "Gorillaz",
+    "title": "Feel Good Inc",
+    "tempo": 139,
+    "drumChannel": 9,
+    "sections": [
+        {
+            "name": "Intro",
+            "loops": 16
+        },
+        {
+            "name": "Verse",
+            "loops": 16
+        },
+        {
+            "name": "Bridge",
+            "loops": 2
+        },
+        {
+            "name": "Chorus",
+            "loops": 18
+        },
+        {
+            "name": "Rap 1",
+            "loops": 16
+        },
+        {
+            "name": "Intro",
+            "loops": 8
+        },
+        {
+            "name": "Pre-Chorus",
+            "loops": 12
+        },
+        {
+            "name": "Chorus",
+            "loops": 18
+        },
+        {
+            "name": "Rap 2",
+            "loops": 8
+        },
+        {
+            "name": "Ending",
+            "loops": 8
+        }
+    ]
+}

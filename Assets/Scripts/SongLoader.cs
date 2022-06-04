@@ -9,7 +9,7 @@ public class SongLoader : MonoBehaviour
     [SerializeField] Transform listPanel;
     [SerializeField] TMP_Text songTitle;
     [SerializeField] List<SectionContainer> sectionsList;
-    SongFile song;
+    SongInfo song;
     int currentIndex;
     SectionContainer currentItem;
     Vector3 initialPosition;
@@ -18,7 +18,7 @@ public class SongLoader : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
-        songTitle.text = gameManager.GetSong().title;
+        songTitle.text = gameManager.GetSong();
         currentIndex = 0;
         LoadStructure();
         initialPosition = listPanel.transform.position;
@@ -35,16 +35,16 @@ public class SongLoader : MonoBehaviour
 
     void LoadStructure()
     {
-        song = gameManager.GetSong();
+        song = gameManager.GetSongInfo();
 
-        for (int i = 0; i < song.sections.Length; i++)
+        for (int i = 0; i < song.sections.Count; i++)
         {
-            SectionContainer item = Instantiate<SectionContainer>(container);
+            SectionContainer item = Instantiate(container);
             item.transform.SetParent(listPanel);
             TMP_Text[] textArray = item.GetComponentsInChildren<TMP_Text>();
-            textArray[0].text = song.sections[i];
-            textArray[1].text = song.loops[i].ToString();
-            textArray[2].text = song.loops[i].ToString();
+            textArray[0].text = song.sections[i].name;
+            textArray[1].text = song.sections[i].loops;
+            textArray[2].text = song.sections[i].loops;
             sectionsList.Add(item);
         }
         currentItem = sectionsList[currentIndex];

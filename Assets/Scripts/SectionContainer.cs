@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class SectionContainer : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class SectionContainer : MonoBehaviour
         fadeActive = false;
         pumpActive = false;
         background = GetComponent<Image>();
-        tempo = GameManager.GetInstance().GetSong().tempo;
+        tempo = Int32.Parse(GameManager.GetInstance().GetSongInfo().tempo);
     }
 
     void Update()

@@ -23,8 +23,9 @@ public class DownloadLoader : MonoBehaviour
             Button b = Instantiate(button);
             b.transform.SetParent(listPanel);
             b.onClick.AddListener(() => { downloadButton.gameObject.SetActive(true); });
-            //b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
+            b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { handler.SetSong(item); });
+            b.onClick.AddListener(() => { informationLoader.ProcessQuery(item); });
             TMP_Text child = b.GetComponentInChildren<TMP_Text>();
             child.text = item;
 
@@ -48,4 +49,5 @@ public class DownloadLoader : MonoBehaviour
         GetSongInfoListData dt = JsonUtility.FromJson<GetSongInfoListData>(data);
         return dt.data;
     }
+
 }

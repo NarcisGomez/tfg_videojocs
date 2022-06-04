@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using MidiPlayerTK;
 using System.Collections.Generic;
+using System;
 
 public class PracticeManager : MonoBehaviour
 {
@@ -27,11 +28,11 @@ public class PracticeManager : MonoBehaviour
     {
         
         gameManager = GameManager.GetInstance();
-        drumChannel = gameManager.GetSong().drumChannel;
-        songTitle.text = gameManager.GetSong().title;
+        drumChannel = int.Parse(gameManager.GetSongInfo().drumChannel);
+        songTitle.text = gameManager.GetSong();
         sectionTitle.text = gameManager.GetSection();
         midiLoader.OnEventNotesMidi.AddListener(NotesToPlay);
-        midiLoader.MPTK_MidiName = gameManager.GetSong().GetSongName();
+        midiLoader.MPTK_MidiName = gameManager.GetSong();
         midiLoader.MPTK_Volume = 0;
         midiLoader.MPTK_StartPlayAtFirstNote = true;
         midiLoader.MPTK_Play();

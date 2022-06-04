@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using MidiPlayerTK;
+using System;
 
 public class BPM : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class BPM : MonoBehaviour
     public static BPM getInstance()
     {
         if (instance != null) return instance;
-        throw new System.Exception("There is no Game Manager");
+        throw new Exception("There is no Game Manager");
     }
 
     void Awake()
@@ -38,8 +39,8 @@ public class BPM : MonoBehaviour
     {
         audioManager = AudioManager.getInstance();
         gameManager = GameManager.GetInstance();
-        bpm = gameManager.GetSong().tempo;
-        midiPlayer.MPTK_MidiName = gameManager.GetSong().GetSongName();
+        bpm = int.Parse(gameManager.GetSongInfo().tempo);
+        midiPlayer.MPTK_MidiName = gameManager.GetSong();
         muteClick = true;
         prevCount = 4;
         tickCount = 0;

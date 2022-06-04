@@ -8,7 +8,7 @@ public class SectionLoader : MonoBehaviour
     [SerializeField] Transform loopPanel;
     [SerializeField] Button button;
     [SerializeField] Button playButton;
-    SongFile song;
+    SongInfo song;
 
     void Start()
     {
@@ -18,14 +18,14 @@ public class SectionLoader : MonoBehaviour
 
     void LoadList()
     {
-        song = gameManager.GetSong();
+        song = gameManager.GetSongInfo();
 
-        for (int i = 0; i < song.sections.Length; i++)
+        for (int i = 0; i < song.sections.Count; i++)
         {
             Button b = Instantiate<Button>(button);
             b.transform.SetParent(loopPanel);
             TMP_Text[] textArray = b.GetComponentsInChildren<TMP_Text>();
-            textArray[0].text = song.sections[i];
+            textArray[0].text = song.sections[i].name;
             b.onClick.AddListener(() => { playButton.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { gameManager.SetSection(textArray[0].text); });
         }

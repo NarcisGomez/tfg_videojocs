@@ -54,6 +54,7 @@ public class SongInfo
     public string band;
     public string title;
     public string tempo;
+    public string drumChannel;
     public List<Section> sections;
 }
 [Serializable]

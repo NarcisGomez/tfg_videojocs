@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class JsonLoader : MonoBehaviour
 {
@@ -20,20 +21,26 @@ public class JsonLoader : MonoBehaviour
 
     public void LoadList()
     {
-        TextAsset[] list = Resources.LoadAll<TextAsset>("JSONFiles");
-        foreach (TextAsset item in list)
+        string[] list = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB", "*.bytes");
+        foreach (Transform c in listPanel.transform)
         {
-            SongFile file = JsonUtility.FromJson<SongFile>(item.ToString());
+            Destroy(c.gameObject);
+        }
+        foreach (string item in list)
+        {
+            string[] path = item.Split('/');
+            string file = path[path.Length - 1].Split('.')[0];
             Button b = Instantiate<Button>(button);
+            
             b.transform.SetParent(listPanel);
             b.onClick.AddListener(() => { gameManager.SetSong(file); });
-            b.onClick.AddListener(() => { informationLoader.LoadInformation(file); });
+            b.onClick.AddListener(() => { informationLoader.ProcessFile(file); });
             b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { tempoContainer.SetActive(true); });
             b.onClick.AddListener(() => { playButton.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { practiceButton.gameObject.SetActive(true); });
             TMP_Text child = b.GetComponentInChildren<TMP_Text>();
-            child.text = file.GetSongName();
+            child.text = file;
             
         }
     }

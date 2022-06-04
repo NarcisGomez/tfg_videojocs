@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-    private SongFile currentSong;
+    private string currentSong;
+    private SongInfo currentSongInfo;
     private float tempoMultiplier;
     string currentSection;
 
@@ -22,14 +23,25 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-    public void SetSong(SongFile song)
+    public void SetSong(string song)
     {
         currentSong = song;
     }
 
-    public SongFile GetSong()
+    public void SetSongInfo(SongInfo songInfo)
     {
-        if(currentSong != null ) return currentSong;
+        currentSongInfo = songInfo;
+    }
+
+    public string GetSong()
+    {
+        if (currentSong != null) return currentSong;
+        throw new System.Exception("No song name");
+    }
+
+    public SongInfo GetSongInfo()
+    {
+        if(currentSongInfo != null ) return currentSongInfo;
         throw new System.Exception("No song to play");
     }
 

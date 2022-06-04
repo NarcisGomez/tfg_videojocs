@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class NoteBehavior : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class NoteBehavior : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
-        tempo = gameManager.GetSong().tempo;
+        tempo = int.Parse(gameManager.GetSongInfo().tempo);
     }
 
     void Update()

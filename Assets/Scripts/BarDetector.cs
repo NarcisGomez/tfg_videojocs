@@ -11,7 +11,7 @@ public class BarDetector : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.GetInstance();
-        midiPlayer.MPTK_MidiName = gameManager.GetSong().GetSongName();
+        midiPlayer.MPTK_MidiName = gameManager.GetSong();
     }
 
 

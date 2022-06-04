@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using SimpleGraphQL;
 using System.Net;
 using System;
@@ -17,6 +18,7 @@ public class DownloadHandler : MonoBehaviour
     {
         blocker.SetActive(true);
         getUrlQuery();
+        SaveJSON(); 
     }
 
     private async void getUrlQuery()
@@ -30,7 +32,7 @@ public class DownloadHandler : MonoBehaviour
         GetSong url = processData(response);
         WebClient web = new WebClient();
         web.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadFileCompleted);
-        web.DownloadFileAsync(new Uri(url.getSong), $"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB/{song}.midi");
+        web.DownloadFileAsync(new Uri(url.getSong), $"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB/{song}.bytes");
 
     }
 
@@ -39,12 +41,20 @@ public class DownloadHandler : MonoBehaviour
         if (e.Error == null)
         {
             blocker.SetActive(false);
+            AssetDatabase.Refresh();
         }
     }
 
-    GetSong processData(string data)
+    private GetSong processData(string data)
     {
         GetSongData dt = JsonUtility.FromJson<GetSongData>(data);
         return dt.data;
+    }
+
+    private void SaveJSON()
+    {
+        SongInfo song = GameManager.GetInstance().GetSongInfo();
+        string songString = JsonUtility.ToJson(song);
+        File.WriteAllText($"{Directory.GetCurrentDirectory()}/Assets/Resources/JSONFiles/{song.band} - {song.title}.json", songString);
     }
 }
