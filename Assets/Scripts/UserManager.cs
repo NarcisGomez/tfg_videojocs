@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UserManager : MonoBehaviour
 {
     private static UserManager instance;
+    private string loggedUser;
     [SerializeField] TMP_InputField usernameField;
     [SerializeField] TMP_InputField passwordField;
     [SerializeField] Button loginButton;
@@ -35,6 +36,10 @@ public class UserManager : MonoBehaviour
     {
         if (instance != null) return instance;
         throw new System.Exception("There is no Game Manager");
+    }
+
+    public string GetUser() {
+        return loggedUser;
     }
 
     public async void SignIn()
@@ -81,6 +86,7 @@ public class UserManager : MonoBehaviour
         PlayerPrefs.SetString("refreshToken", refreshToken);
         PlayerPrefs.SetString("username", user);
         PlayerPrefs.Save();
+        loggedUser = user;
         loginButton.gameObject.SetActive(false);
         username.text = user;
         username.gameObject.SetActive(true);

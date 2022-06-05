@@ -2,14 +2,14 @@ using UnityEngine;
 using TMPro;
 using MidiPlayerTK;
 using System.Collections.Generic;
-using System;
 
 public class PracticeManager : MonoBehaviour
 {
     private GameManager gameManager;
     private int drumChannel;
+    private bool paused;
+    private List<NoteBehavior> notesOnDisplay;
     [SerializeField] TMP_Text songTitle;
-    [SerializeField] TMP_Text sectionTitle;
     [SerializeField] Transform finishPoint;
     [SerializeField] GameObject quarter;
     [SerializeField] MidiFilePlayer midiLoader;
@@ -26,11 +26,11 @@ public class PracticeManager : MonoBehaviour
 
     void Start()
     {
-        
+        notesOnDisplay = new List<NoteBehavior>();
         gameManager = GameManager.GetInstance();
         drumChannel = int.Parse(gameManager.GetSongInfo().drumChannel);
         songTitle.text = gameManager.GetSong();
-        sectionTitle.text = gameManager.GetSection();
+        paused = false;
         midiLoader.OnEventNotesMidi.AddListener(NotesToPlay);
         midiLoader.MPTK_MidiName = gameManager.GetSong();
         midiLoader.MPTK_Volume = 0;
@@ -105,8 +105,29 @@ public class PracticeManager : MonoBehaviour
                 if(note != null)
                 {
                     note.SetId(mptkEvent.Value);
+                    notesOnDisplay.Add(note);
                 } 
             }                
         }
+    }
+
+    public void TogglePause()
+    {
+        if (!paused)
+        {
+            midiLoader.MPTK_Pause();
+            notesOnDisplay.ForEach(note => note.SetStop(true));
+        }
+        else
+        {
+            midiLoader.MPTK_UnPause();
+            notesOnDisplay.ForEach(note => note.SetStop(false));
+        }
+        paused = !paused;
+    }
+
+    public void RemoveNote (NoteBehavior note)
+    {
+        notesOnDisplay.Remove(note);
     }
 }

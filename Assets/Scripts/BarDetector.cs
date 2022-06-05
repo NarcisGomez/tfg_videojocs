@@ -7,6 +7,7 @@ public class BarDetector : MonoBehaviour
     List<NoteBehavior> notes = new List<NoteBehavior>();
     [SerializeField] MidiFilePlayer midiPlayer;
     GameManager gameManager;
+    bool paused;
 
     private void Start()
     {
@@ -29,6 +30,19 @@ public class BarDetector : MonoBehaviour
             }
                 
             }
+    }
+
+    public void TogglePause()
+    {
+        if (!paused)
+        {
+            midiPlayer.MPTK_Pause();
+        }
+        else
+        {
+            midiPlayer.MPTK_UnPause();
+        }
+        paused = !paused;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

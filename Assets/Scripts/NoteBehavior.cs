@@ -6,6 +6,7 @@ using System;
 public class NoteBehavior : MonoBehaviour
 {
     int id;
+    bool stop;
     [SerializeField] List<Sprite> images;
     Vector3 finalPosition;
     GameManager gameManager;
@@ -19,13 +20,18 @@ public class NoteBehavior : MonoBehaviour
 
     void Update()
     {
-        //Update hardcoded number with barCount in the future
-        transform.position = Vector3.MoveTowards(transform.position, finalPosition, Time.deltaTime * (tempo * 4));
-
-        if(transform.position == finalPosition)
+        if (!stop)
         {
-            Destroy(gameObject);
+            //Update hardcoded number with barCount in the future
+            transform.position = Vector3.MoveTowards(transform.position, finalPosition, Time.deltaTime * (tempo * 4));
+
+            if (transform.position == finalPosition)
+            {
+                FindObjectOfType<PracticeManager>().RemoveNote(this);
+                Destroy(gameObject);
+            }
         }
+        
     }
 
     public void SetPosition(Vector3 position)
@@ -65,5 +71,10 @@ public class NoteBehavior : MonoBehaviour
     public void SetId(int id)
     {
         this.id = id;
+    }
+
+    public void SetStop( bool value)
+    {
+        stop = value;
     }
 }
