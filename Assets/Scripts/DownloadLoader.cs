@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using SimpleGraphQL;
+using System.Collections.Generic;
+using System.IO;
 
 public class DownloadLoader : MonoBehaviour
 {
+    private List<string> localSongs;
     [SerializeField] Transform listPanel;
     [SerializeField] Button button;
     [SerializeField] InformationLoader informationLoader;
@@ -13,22 +16,32 @@ public class DownloadLoader : MonoBehaviour
 
     void Start()
     {
+        localSongs = new List<string>();
         songListQuery();
     }
 
     void LoadList(GetSongInfoList list)
     {
+        string[] songs = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB", "*.bytes");
+        foreach (string s in songs)
+        {
+            string[] path = s.Split('/');
+            string name = path[path.Length - 1].Split('.')[0];
+            localSongs.Add(name);
+        }
         foreach (string item in list.getSongInfoList)
         {
-            Button b = Instantiate(button);
-            b.transform.SetParent(listPanel);
-            b.onClick.AddListener(() => { downloadButton.gameObject.SetActive(true); });
-            b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
-            b.onClick.AddListener(() => { handler.SetSong(item); });
-            b.onClick.AddListener(() => { informationLoader.ProcessQuery(item); });
-            TMP_Text child = b.GetComponentInChildren<TMP_Text>();
-            child.text = item;
-
+            if (!localSongs.Contains(item))
+            {
+                Button b = Instantiate(button);
+                b.transform.SetParent(listPanel);
+                b.onClick.AddListener(() => { downloadButton.gameObject.SetActive(true); });
+                b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
+                b.onClick.AddListener(() => { handler.SetSong(item); });
+                b.onClick.AddListener(() => { informationLoader.ProcessQuery(item); });
+                TMP_Text child = b.GetComponentInChildren<TMP_Text>();
+                child.text = item;
+            }
         }
     }
 
