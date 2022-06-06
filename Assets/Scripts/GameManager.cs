@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private string currentSong;
     private SongInfo currentSongInfo;
     private float tempoMultiplier;
+    private string instrument;
     string currentSection;
 
     public static GameManager GetInstance()
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         tempoMultiplier = 1;
+        instrument = "Drums";
         if (instance != null) Destroy(gameObject);
         else instance = this;
 
@@ -54,6 +56,16 @@ public class GameManager : MonoBehaviour
     {
         if (currentSong != null) return currentSection;
         throw new System.Exception("No section selected");
+    }
+
+    public string GetInstrument()
+    {
+        return instrument;
+    }
+
+    public void SetInstrument(string value)
+    {
+        instrument = value;
     }
 
     public void setTempoMultiplier(float value)

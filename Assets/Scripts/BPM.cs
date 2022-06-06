@@ -1,39 +1,22 @@
 using UnityEngine;
 using TMPro;
 using MidiPlayerTK;
-using System;
 
 public class BPM : MonoBehaviour
 {
-    static BPM instance;
-    static bool beatFull;
-    static int beatCountFull;
+    bool beatFull;
     int prevCount;
     int tickCount;
     float beatInterval;
     float beatTimer;
     AudioManager audioManager;
     GameManager gameManager;
-    bool paused;
+    public bool paused;
     public float bpm;
     [SerializeField] bool muteClick;
     [SerializeField] TMP_Text tempoText;
     [SerializeField] MidiFilePlayer midiPlayer;
     [SerializeField] SongLoader songLoader;
-
-    public static BPM getInstance()
-    {
-        if (instance != null) return instance;
-        throw new Exception("There is no Game Manager");
-    }
-
-    void Awake()
-    {
-        if (instance != null) Destroy(gameObject);
-        else instance = this;
-
-        DontDestroyOnLoad(gameObject);
-    }
 
     void Start()
     {
@@ -47,7 +30,6 @@ public class BPM : MonoBehaviour
         paused = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!paused)
@@ -66,7 +48,6 @@ public class BPM : MonoBehaviour
         {
             beatTimer -= beatInterval;
             beatFull = true;
-            beatCountFull++;
         }
         if (beatFull)
         {
@@ -127,5 +108,10 @@ public class BPM : MonoBehaviour
     public void toggleMute()
     {
         muteClick = !muteClick;
+    }
+
+    public void SetPause(bool value)
+    {
+        paused = value;
     }
 }

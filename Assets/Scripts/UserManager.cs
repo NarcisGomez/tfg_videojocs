@@ -7,13 +7,17 @@ public class UserManager : MonoBehaviour
 {
     private static UserManager instance;
     private string loggedUser;
+    private UserStats userStats;
     [SerializeField] TMP_InputField usernameField;
     [SerializeField] TMP_InputField passwordField;
     [SerializeField] Button loginButton;
+    [SerializeField] Button logoutButton;
+    [SerializeField] Button statsButton;
     [SerializeField] TMP_Text username;
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject loginMenu;
     [SerializeField] GameObject drumTitle;
+    [SerializeField] TMP_Dropdown dropdown;
 
     void Awake()
     {
@@ -22,7 +26,6 @@ public class UserManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         string token = PlayerPrefs.GetString("refreshToken", "noToken");
@@ -42,6 +45,11 @@ public class UserManager : MonoBehaviour
         return loggedUser;
     }
 
+    public UserStats GetUserStats()
+    {
+        return userStats;
+    }
+
     public async void SignIn()
     {
         string query = $"query {{signIn(username: \"{usernameField.text}\", password: \"{passwordField.text}\") {{\naccessToken\nrefreshToken\nusername\n}}\n}}";
@@ -51,14 +59,36 @@ public class UserManager : MonoBehaviour
             Query = query
         };
         var response = await client.Send(request);
-        GetSignIn credentials = processSignIn(response);
-        SaveAndChange(credentials.signIn.accessToken, credentials.signIn.refreshToken, credentials.signIn.username);
+        GetSignIn credentials = JsonUtility.FromJson<SignInData>(response).data;
+        SaveSignIn(credentials.signIn.accessToken, credentials.signIn.refreshToken, credentials.signIn.username);
     }
 
-    private GetSignIn processSignIn(string data)
+    public void LogOut()
     {
-        SignInData dt = JsonUtility.FromJson<SignInData>(data);
-        return dt.data;
+        PlayerPrefs.DeleteAll();
+        loggedUser = null;
+        username.text = "";
+        username.gameObject.SetActive(false);
+        loginButton.gameObject.SetActive(true);
+    }
+
+    public void SetDropdown()
+    {
+        GameManager.GetInstance().SetInstrument(dropdown.options[dropdown.value].text);
+    }
+
+    private async void GetStats()
+    {
+        string query = $"query {{ getUserStats(user: \"{loggedUser}\") {{\nid\nsongs\nbest\ntried\ncompleted\n}}\n}}";
+        var client = new GraphQLClient("https://ujtoaoadjk.execute-api.eu-west-3.amazonaws.com/prod");
+        var request = new Request
+        {
+            Query = query
+        };
+        var response = await client.Send(request);
+        userStats = JsonUtility.FromJson<GetUserStatsData>(response).data.getUserStats;
+        logoutButton.gameObject.SetActive(true);
+        statsButton.gameObject.SetActive(true);
     }
 
     private async void RefreshToken(string token)
@@ -70,29 +100,17 @@ public class UserManager : MonoBehaviour
             Query = query
         };
         var response = await client.Send(request);
-        RefreshToken credentials = processRefresh(response);
+        RefreshToken credentials = JsonUtility.FromJson<RefreshTokenData>(response).data;
         SaveRefresh(credentials.refreshAccessToken.accessToken, credentials.refreshAccessToken.username);
     }
 
-    private RefreshToken processRefresh(string data)
-    {
-        RefreshTokenData dt = JsonUtility.FromJson<RefreshTokenData>(data);
-        return dt.data;
-    }
-
-    private void SaveAndChange(string accessToken, string refreshToken, string user)
+    private void SaveSignIn(string accessToken, string refreshToken, string user)
     {
         PlayerPrefs.SetString("accessToken", accessToken);
         PlayerPrefs.SetString("refreshToken", refreshToken);
         PlayerPrefs.SetString("username", user);
         PlayerPrefs.Save();
-        loggedUser = user;
-        loginButton.gameObject.SetActive(false);
-        username.text = user;
-        username.gameObject.SetActive(true);
-        mainMenu.SetActive(true);
-        loginMenu.SetActive(false);
-        drumTitle.SetActive(true);
+        ChangeView(user);
     }
 
     private void SaveRefresh(string accessToken, string user)
@@ -100,11 +118,19 @@ public class UserManager : MonoBehaviour
         PlayerPrefs.SetString("accessToken", accessToken);
         PlayerPrefs.SetString("username", user);
         PlayerPrefs.Save();
+        ChangeView(user);
+        
+    }
+
+    private void ChangeView(string user)
+    {
+        loggedUser = user;
         loginButton.gameObject.SetActive(false);
         username.text = user;
         username.gameObject.SetActive(true);
         mainMenu.SetActive(true);
         loginMenu.SetActive(false);
         drumTitle.SetActive(true);
+        GetStats();
     }
 }

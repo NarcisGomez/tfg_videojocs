@@ -17,6 +17,7 @@ public class SongLoader : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("WHAT");
         gameManager = GameManager.GetInstance();
         songTitle.text = gameManager.GetSong();
         currentIndex = 0;
