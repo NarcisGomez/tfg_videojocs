@@ -1,9 +1,10 @@
 using UnityEngine;
-using TMPro;
+using System.Collections.Generic;
 using MidiPlayerTK;
 
 public class BPM : MonoBehaviour
 {
+    int drumChannel;
     bool beatFull;
     int prevCount;
     int tickCount;
@@ -13,17 +14,25 @@ public class BPM : MonoBehaviour
     GameManager gameManager;
     public bool paused;
     public float bpm;
+    private List<NoteBehavior> notesOnDisplay;
+    [SerializeField] Transform startingPoint;
+    [SerializeField] Transform finishPoint;
+    [SerializeField] GameObject quarter;
     [SerializeField] bool muteClick;
-    [SerializeField] TMP_Text tempoText;
     [SerializeField] MidiFilePlayer midiPlayer;
     [SerializeField] SongLoader songLoader;
+    [SerializeField] Animator circleAnimation;
 
     void Start()
     {
+        notesOnDisplay = new List<NoteBehavior>();
         audioManager = AudioManager.getInstance();
         gameManager = GameManager.GetInstance();
         bpm = int.Parse(gameManager.GetSongInfo().tempo);
+        circleAnimation.speed = circleAnimation.speed / 60 * bpm;
+        drumChannel = int.Parse(gameManager.GetSongInfo().drumChannel);
         midiPlayer.MPTK_MidiName = gameManager.GetSong();
+        midiPlayer.OnEventNotesMidi.AddListener(NotesToPlay);
         muteClick = true;
         prevCount = 4;
         tickCount = 0;
@@ -68,10 +77,6 @@ public class BPM : MonoBehaviour
             {
                 audioManager.Play("tick");
             }
-            else
-            {
-                songLoader.Tick();
-            }
         }
     }
 
@@ -83,8 +88,6 @@ public class BPM : MonoBehaviour
             songLoader.WholeBar();
             tickCount = 1;
         }
-        tempoText.text = tickCount.ToString();
-
     }
 
     public void MuteDrums()
@@ -97,10 +100,12 @@ public class BPM : MonoBehaviour
         if (paused)
         {
             midiPlayer.MPTK_UnPause();
+            notesOnDisplay.ForEach(note => note.SetStop(false));
         }
         else
         {
             midiPlayer.MPTK_Pause();
+            notesOnDisplay.ForEach(note => note.SetStop(true));
         }
         paused = !paused;
     }
@@ -113,5 +118,50 @@ public class BPM : MonoBehaviour
     public void SetPause(bool value)
     {
         paused = value;
+    }
+
+    void NotesToPlay(List<MPTKEvent> mptkEvents)
+    {
+        foreach (MPTKEvent mptkEvent in mptkEvents)
+        {
+            if (mptkEvent.Command == MPTKCommand.NoteOn && mptkEvent.Channel == drumChannel)
+            {
+                NoteBehavior note = null;
+                switch (mptkEvent.Value)
+                {
+                    case 35://Bass
+                    case 36:
+                    case 40:
+                    case 39:
+                    case 38://Snare
+                    case 48://Tom1
+                    case 45://Tom2
+                    case 41:
+                    case 43://Tom3
+                    case 57:
+                    case 49://Crash
+                    case 51://Ride
+                    case 42:
+                    case 44:
+                    case 46://HiHat
+                        note = Instantiate(quarter, startingPoint).GetComponent<NoteBehavior>();
+                        note.SetPosition(new Vector3(finishPoint.position.x, startingPoint.position.y, finishPoint.position.z));
+                        break;
+                    default:
+                        Debug.LogError($"No note for this number: {mptkEvent.Value}");
+                        break;
+                }
+                if (note != null)
+                {
+                    note.SetId(mptkEvent.Value);
+                    notesOnDisplay.Add(note);
+                }
+            }
+        }
+    }
+
+    public void RemoveNote(NoteBehavior note)
+    {
+        notesOnDisplay.Remove(note);
     }
 }

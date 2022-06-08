@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System;
 
 public class NoteBehavior : MonoBehaviour
 {
@@ -27,7 +26,10 @@ public class NoteBehavior : MonoBehaviour
 
             if (transform.position == finalPosition)
             {
-                FindObjectOfType<PracticeManager>().RemoveNote(this);
+                PracticeManager practiceManager = FindObjectOfType<PracticeManager>();
+                if (practiceManager != null) practiceManager.RemoveNote(this);
+                BPM bpm = FindObjectOfType<BPM>();
+                if (bpm != null) bpm.RemoveNote(this);
                 Destroy(gameObject);
             }
         }

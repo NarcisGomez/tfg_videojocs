@@ -45,7 +45,6 @@ public class InformationLoader : MonoBehaviour
 
     public void ProcessFile(string name)
     {
-        Debug.Log(name);
         TextAsset item = Resources.Load<TextAsset>($"JSONFiles/{name}");
         SongInfo file = JsonUtility.FromJson<SongInfo>(item.ToString());
         LoadInformation(file);

@@ -118,3 +118,10 @@ public class UserStats
     public List<int> tried;
     public List<bool> completed;
 }
+
+public class SongStats
+{
+    public int totalNotesPlayed;
+    public int hitNotes;
+    public int missedNotes;
+}

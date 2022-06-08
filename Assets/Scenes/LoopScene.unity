@@ -1427,6 +1427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d03ff4adb84e04cecb953151c346be57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statsManager: {fileID: 1333229741}
   midiPlayer: {fileID: 415896568}
 --- !u!50 &675117235
 Rigidbody2D:
@@ -2175,6 +2176,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 219108480}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1333229740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1333229742}
+  - component: {fileID: 1333229741}
+  m_Layer: 0
+  m_Name: StatisticsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1333229741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333229740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425db16a7a6d740ecac12ffb7faad49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1333229742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333229740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960.8693, y: 494.35883, z: -7.118672}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1381647145
 GameObject:

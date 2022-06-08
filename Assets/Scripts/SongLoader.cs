@@ -17,7 +17,6 @@ public class SongLoader : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("WHAT");
         gameManager = GameManager.GetInstance();
         songTitle.text = gameManager.GetSong();
         currentIndex = 0;
@@ -67,7 +66,7 @@ public class SongLoader : MonoBehaviour
                 if (currentIndex < sectionsList.Count)
                 {
                     currentItem = sectionsList[currentIndex];
-                    currentItem.SetPump(true);
+                    currentItem.SetPlaying(true);
                 }
                 else
                 {
@@ -79,12 +78,7 @@ public class SongLoader : MonoBehaviour
         if (entranceActive)
         {
             entranceActive = false;
-            currentItem.SetPump(true);
+            currentItem.SetPlaying(true);
         }
-    }
-
-    public void Tick()
-    {
-        currentItem.Tick();
     }
 }

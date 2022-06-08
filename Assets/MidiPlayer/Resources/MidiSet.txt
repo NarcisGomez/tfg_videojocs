@@ -11,7 +11,6 @@
   </SoundFonts>
   <IndexSelectedSF>0</IndexSelectedSF>
   <MidiFiles>
-    <string>Gorillaz - Clint Eastwood</string>
     <string>Gorillaz - Feel Good Inc</string>
     <string>Nirvana - Smells Like Teen Spirit</string>
   </MidiFiles>

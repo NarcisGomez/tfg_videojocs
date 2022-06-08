@@ -27,9 +27,11 @@ public class MIDISystem : MonoBehaviour
             case 49://Crash
             case 51://Ride
             case 46://HiHat
-                Debug.Log(note);
-                detector.HitNote(note);
-                break;
+              detector.HitNote(note);
+              break;
+            default:
+              Debug.Log(note);
+              break;
         }
     }
 }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private float tempoMultiplier;
     private string instrument;
     string currentSection;
+    SongStats currentStats;
 
     public static GameManager GetInstance()
     {
@@ -75,7 +76,23 @@ public class GameManager : MonoBehaviour
 
     public void EndSong()
     {
-        SceneManager.LoadScene("SongListScene");
+        SceneManager.LoadScene("EndPlay");
     }
+
+    public SongStats GetStats()
+    {
+        return currentStats;
+    }
+
+    public void SetStats(int totalNotesPlayed, int hitNotes, int missedNotes)
+    {
+        SongStats songStats = new SongStats();
+        songStats.totalNotesPlayed = totalNotesPlayed;
+        songStats.hitNotes = hitNotes;
+        songStats.missedNotes = missedNotes;
+        currentStats = songStats;
+
+    }
+
 }
 

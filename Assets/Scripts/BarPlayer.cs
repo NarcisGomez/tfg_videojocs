@@ -1,60 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MidiPlayerTK;
 
-public class BarDetector : MonoBehaviour
+public class BarPlayer : MonoBehaviour
 {
-    
+
     List<NoteBehavior> notes = new List<NoteBehavior>();
     [SerializeField] StatisticsManager statsManager;
-    [SerializeField] MidiFilePlayer midiPlayer;
-    GameManager gameManager;
-    bool paused;
-
-    private void Start()
-    {
-        gameManager = GameManager.GetInstance();
-        midiPlayer.MPTK_MidiName = gameManager.GetSong();
-    }
-
 
     public void HitNote(int note)
     {
-            if (notes.Count != 0)
+        if (notes.Count != 0)
+        {
+            foreach (NoteBehavior n in notes)
             {
-                foreach (NoteBehavior n in notes)
-            {
-                if(n.GetId() == note) {
+                if (n.GetId() == note)
+                {
                     statsManager.AddHitNote();
                     notes.Remove(n);
                     Destroy(n.gameObject);
                 }
                 break;
             }
-                
-            }
-    }
 
-    public void TogglePause()
-    {
-        if (!paused)
-        {
-            midiPlayer.MPTK_Pause();
         }
-        else
-        {
-            midiPlayer.MPTK_UnPause();
-        }
-        paused = !paused;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<NoteBehavior>().GetId() == 0) {
-            midiPlayer.MPTK_StartPlayAtFirstNote = true;
-            midiPlayer.MPTK_Play();
-
-        }
         notes.Add(collision.gameObject.GetComponent<NoteBehavior>());
         statsManager.AddPlayedNote();
     }

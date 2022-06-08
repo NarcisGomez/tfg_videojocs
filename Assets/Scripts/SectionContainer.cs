@@ -4,40 +4,40 @@ using System;
 
 public class SectionContainer : MonoBehaviour
 {
+    bool current;
     bool fadeActive;
-    bool pumpActive;
     Image background;
     int tempo;
-    bool color;
 
     private void Start()
     {
+        current = false;
         fadeActive = false;
-        pumpActive = false;
         background = GetComponent<Image>();
         tempo = Int32.Parse(GameManager.GetInstance().GetSongInfo().tempo);
     }
 
     void Update()
     {
-        if (pumpActive)
+        if (current)
         {
-            ColorPump();
+            FadePlaying();
         }
-        else if (fadeActive)
+
+        if (fadeActive)
         {
             ColorFade();
         }
     }
 
-    public void SetPump(bool pump)
+    public void SetPlaying(bool playing)
     {
-        pumpActive = pump;
+        current = playing;
     }
 
     public void SetFade(bool fade)
     {
-        SetPump(false);
+        current = false;
         fadeActive = fade;
     }
 
@@ -45,26 +45,9 @@ public class SectionContainer : MonoBehaviour
     {
         background.color = Color.Lerp(background.color, Color.black, Time.deltaTime * tempo * 0.1f);
     }
-    private void ToggleColor()
-    {
-        color = !color;
-    }
 
-    private void ColorPump()
+    private void FadePlaying()
     {
-        if (color)
-        {
-            background.color = Color.Lerp(background.color, Color.blue, Time.deltaTime * tempo * 0.1f);
-        }
-        else
-        {
-            background.color = Color.Lerp(background.color, Color.red, Time.deltaTime * tempo * 0.1f);
-        }
-        
-    }
-
-    public void Tick()
-    {
-        ToggleColor();
+        background.color = Color.Lerp(background.color, Color.red, Time.deltaTime * tempo * 0.1f);
     }
 }
