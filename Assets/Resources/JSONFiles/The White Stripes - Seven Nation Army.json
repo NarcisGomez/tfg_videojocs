@@ -1,0 +1,92 @@
+{
+    "band": "The White Stripes",
+    "title": "Seven Nation Army",
+    "tempo": 120,
+    "drumChannel": 9,
+    "sections": [
+        {
+            "name": "Bass Intro",
+            "loops": 4
+        },
+        {
+            "name": "Bass + Drums",
+            "loops": 4
+        },
+        {
+            "name": "Verse",
+            "loops": 8
+        },
+        {
+            "name": "Drum Progression",
+            "loops": 8
+        },
+        {
+            "name": "Pre-Chorus",
+            "loops": 2
+        },
+        {
+            "name": "Chorus",
+            "loops": 8
+        },
+        {
+            "name": "Post-Chorus",
+            "loops": 2
+        },
+        {
+            "name": "Bass Intro",
+            "loops": 4
+        },
+        {
+            "name": "Bass + Drums",
+            "loops": 4
+        },
+        {
+            "name": "Verse",
+            "loops": 8
+        },
+        {
+            "name": "Drum Progression",
+            "loops": 8
+        },
+        {
+            "name": "Pre-Chorus",
+            "loops": 2
+        },
+        {
+            "name": "Solo",
+            "loops": 16
+        },
+        {
+            "name": "Post-Chorus",
+            "loops": 2
+        },
+        {
+            "name": "Bass Intro",
+            "loops": 4
+        },
+        {
+            "name": "Bass + Drums",
+            "loops": 4
+        },
+        {
+            "name": "Verse",
+            "loops": 8
+        },
+        {
+            "name": "Drum Progression",
+            "loops": 8
+        },
+        {
+            "name": "Pre-Chorus",
+            "loops": 2
+        },
+        {
+            "name": "Chorus",
+            "loops": 16
+        },
+        {
+            "name": "End",
+            "loops": 4
+        }
+    ]
+}

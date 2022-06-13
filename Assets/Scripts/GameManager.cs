@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    private string currentUser;
     private string currentSong;
     private SongInfo currentSongInfo;
     private float tempoMultiplier;
@@ -93,6 +94,17 @@ public class GameManager : MonoBehaviour
         currentStats = songStats;
 
     }
+
+    public string GetUser()
+    {
+        return currentUser;
+    }
+
+    public void SetUSer(string name)
+    {
+        currentUser = name;
+    }
+
 
 }
 

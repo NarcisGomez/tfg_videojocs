@@ -12,6 +12,8 @@
   <IndexSelectedSF>0</IndexSelectedSF>
   <MidiFiles>
     <string>Gorillaz - Feel Good Inc</string>
+    <string>Linkin Park - What I've Done</string>
     <string>Nirvana - Smells Like Teen Spirit</string>
+    <string>The White Stripes - Seven Nation Army</string>
   </MidiFiles>
 </MidiSet>

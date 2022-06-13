@@ -6,6 +6,7 @@ using System.IO;
 public class JsonLoader : MonoBehaviour
 {
     GameManager gameManager;
+    int songAmmount;
     [SerializeField] Transform listPanel;
     [SerializeField] Button button;
     [SerializeField] InformationLoader informationLoader;
@@ -16,6 +17,7 @@ public class JsonLoader : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
+        songAmmount = UserManager.GetInstance().GetUserStats().songs.Count;
         LoadList();
     }
 
@@ -26,9 +28,9 @@ public class JsonLoader : MonoBehaviour
         {
             Destroy(c.gameObject);
         }
-        foreach (string item in list)
+        for(int i = 0; i < list.Length; i++)
         {
-            string[] path = item.Split('/');
+            string[] path = list[i].Split('/');
             string file = path[path.Length - 1].Split('.')[0];
             Button b = Instantiate<Button>(button);
             
@@ -41,7 +43,14 @@ public class JsonLoader : MonoBehaviour
             b.onClick.AddListener(() => { practiceButton.gameObject.SetActive(true); });
             TMP_Text child = b.GetComponentInChildren<TMP_Text>();
             child.text = file;
-            
+            if(i >= songAmmount + 1)
+            {
+                b.enabled = false;
+                TMP_Text buttonText = b.GetComponentInChildren<TMP_Text>();
+                Debug.Log(buttonText);
+                buttonText.color = new Color(buttonText.color.r, buttonText.color.g, buttonText.color.b, 0.2f);
+            }
         }
+        //Do additional content here
     }
 }

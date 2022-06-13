@@ -1348,8 +1348,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -508.77, y: -0.00008535416}
-  m_SizeDelta: {x: 6.8245, y: 151.2464}
+  m_AnchoredPosition: {x: -508.77, y: -53.760426}
+  m_SizeDelta: {x: 6.8245, y: 605.7947}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &675117231
 BoxCollider2D:
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2206,6 +2206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425db16a7a6d740ecac12ffb7faad49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barPerformance: {fileID: 0}
 --- !u!4 &1333229742
 Transform:
   m_ObjectHideFlags: 0
