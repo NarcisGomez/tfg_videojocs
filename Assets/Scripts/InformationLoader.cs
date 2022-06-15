@@ -8,6 +8,8 @@ public class InformationLoader : MonoBehaviour
     [SerializeField] private TMP_Text songTempo;
     [SerializeField] private TMP_Text songSections;
     [SerializeField] private TMP_Text songLoops;
+    [SerializeField] private Transform sectionPanel;
+    [SerializeField] private Transform loopPanel;
 
     private void LoadInformation(SongInfo file)
     {

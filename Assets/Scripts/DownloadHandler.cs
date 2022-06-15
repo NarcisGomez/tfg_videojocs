@@ -41,7 +41,13 @@ public class DownloadHandler : MonoBehaviour
         if (e.Error == null)
         {
             blocker.SetActive(false);
+#if UNITY_EDITOR
+
             AssetDatabase.Refresh();
+
+#endif
+            //Resources.LoadAll($"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB");
+            //Resources.LoadAll($"{Directory.GetCurrentDirectory()}/Assets/Resources/MidiDB/JSONFiles");
         }
     }
 

@@ -4,6 +4,7 @@ using MidiJack;
 public class MIDISystem : MonoBehaviour
 {
     [SerializeField] BarDetector detector;
+    [SerializeField] BarPlayer player;
 
     private void OnEnable()
     {
@@ -26,11 +27,17 @@ public class MIDISystem : MonoBehaviour
             case 43://Tom3
             case 49://Crash
             case 51://Ride
-            case 46://HiHat
-              detector.HitNote(note);
-              break;
-            default:
-              Debug.Log(note);
+            case 46://HiHatOpen
+            case 42://HiHatClosed
+            case 44://HiHatPedal
+                if(detector != null)
+                {
+                    detector.HitNote(note);
+                }
+                if(player != null)
+                {
+                    player.HitNote(note);
+                }
               break;
         }
     }

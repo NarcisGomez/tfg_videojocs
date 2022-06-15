@@ -9,6 +9,7 @@ public class FinalStats : MonoBehaviour
     string user;
     [SerializeField] TMP_Text username;
     [SerializeField] TMP_Text songTitle;
+    [SerializeField] TMP_Text artistTitle;
     [SerializeField] TMP_Text totalPlayed;
     [SerializeField] TMP_Text accuracy;
     [SerializeField] TMP_Text failed;
@@ -23,16 +24,19 @@ public class FinalStats : MonoBehaviour
 
     private void LoadView()
     {
-        int finalAccuracy = songStats.hitNotes / songStats.totalNotesPlayed * 100;
-        totalPlayed.text = (songStats.totalNotesPlayed).ToString() + " %";
-        accuracy.text = finalAccuracy.ToString() + " %";
-        failed.text = (songStats.missedNotes / songStats.totalNotesPlayed * 100).ToString() + " %";
-        songTitle.text = gameManager.GetSong();
+        float finalAccuracy = ((float)songStats.hitNotes / songStats.totalNotesPlayed) * 100;
+        float finalMissed = ((float)songStats.missedNotes / songStats.totalNotesPlayed) * 100;
+        totalPlayed.text = (songStats.totalNotesPlayed).ToString() + " notes";
+        accuracy.text = ((int)finalAccuracy).ToString() + " %";
+        failed.text = ((int)finalMissed).ToString() + " %";
+        SongInfo songInfo = gameManager.GetSongInfo();
+        songTitle.text = songInfo.title;
+        artistTitle.text = songInfo.band.ToUpper();
         if (gameManager.GetUser() != null)
         {
             user = gameManager.GetUser();
             username.text = user;
-            SaveStats(finalAccuracy, gameManager.GetSong(), 1, finalAccuracy == 100);
+            SaveStats((int)finalAccuracy, gameManager.GetSong(), 1, (int)finalAccuracy == 100);
         }
         else
         {

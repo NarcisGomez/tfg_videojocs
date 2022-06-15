@@ -27,6 +27,10 @@ public class StatisticsManager : MonoBehaviour
     {
         totalNotesPlayed++;
     }
+    public void SendStatistics()
+    {
+        GameManager.GetInstance().SetStats(totalNotesPlayed, hitNotes, missedNotes);
+    }
 
     public void EndGame()
     {

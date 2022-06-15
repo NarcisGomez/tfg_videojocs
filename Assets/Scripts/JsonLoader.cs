@@ -10,7 +10,6 @@ public class JsonLoader : MonoBehaviour
     [SerializeField] Transform listPanel;
     [SerializeField] Button button;
     [SerializeField] InformationLoader informationLoader;
-    [SerializeField] GameObject tempoContainer;
     [SerializeField] Button playButton;
     [SerializeField] Button practiceButton;
 
@@ -45,7 +44,6 @@ public class JsonLoader : MonoBehaviour
             b.onClick.AddListener(() => { gameManager.SetSong(file); });
             b.onClick.AddListener(() => { informationLoader.ProcessFile(file); });
             b.onClick.AddListener(() => { informationLoader.gameObject.SetActive(true); });
-            b.onClick.AddListener(() => { tempoContainer.SetActive(true); });
             b.onClick.AddListener(() => { playButton.gameObject.SetActive(true); });
             b.onClick.AddListener(() => { practiceButton.gameObject.SetActive(true); });
             TMP_Text child = b.GetComponentInChildren<TMP_Text>();

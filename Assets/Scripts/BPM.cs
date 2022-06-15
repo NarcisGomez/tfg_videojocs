@@ -101,11 +101,13 @@ public class BPM : MonoBehaviour
         {
             midiPlayer.MPTK_UnPause();
             notesOnDisplay.ForEach(note => note.SetStop(false));
+            circleAnimation.enabled = true;
         }
         else
         {
             midiPlayer.MPTK_Pause();
             notesOnDisplay.ForEach(note => note.SetStop(true));
+            circleAnimation.enabled = false;
         }
         paused = !paused;
     }

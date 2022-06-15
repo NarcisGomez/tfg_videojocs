@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using MidiPlayerTK;
 using System.Collections.Generic;
+using System;
 
 public class PracticeManager : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class PracticeManager : MonoBehaviour
     private bool paused;
     private List<NoteBehavior> notesOnDisplay;
     [SerializeField] TMP_Text songTitle;
+    [SerializeField] TMP_Text artistTitle;
     [SerializeField] Transform finishPoint;
     [SerializeField] GameObject quarter;
     [SerializeField] MidiFilePlayer midiLoader;
+    [SerializeField] MidiFilePlayer midiPlayer;
     [SerializeField] List<Transform> startingPoint;
+    [SerializeField] StatisticsManager statsManager;
     //List order
     //0 -> ride & crash
     //1 -> hihat top
@@ -29,9 +33,13 @@ public class PracticeManager : MonoBehaviour
         notesOnDisplay = new List<NoteBehavior>();
         gameManager = GameManager.GetInstance();
         drumChannel = int.Parse(gameManager.GetSongInfo().drumChannel);
-        songTitle.text = gameManager.GetSong();
+        SongInfo songInfo = gameManager.GetSongInfo();
+        songTitle.text = songInfo.title;
+        artistTitle.text = songInfo.band.ToUpper();
         paused = false;
         midiLoader.OnEventNotesMidi.AddListener(NotesToPlay);
+        List<TrackMidiEvent> eventList = midiLoader.MPTK_MidiEvents;
+    midiPlayer.OnEventEndPlayMidi.AddListener(EndGame);
         midiLoader.MPTK_MidiName = gameManager.GetSong();
         midiLoader.MPTK_Volume = 0;
         midiLoader.MPTK_StartPlayAtFirstNote = true;
@@ -40,6 +48,12 @@ public class PracticeManager : MonoBehaviour
         phantom.SetImage("phantom");
         phantom.SetPosition(new Vector3(finishPoint.position.x, startingPoint[6].position.y, finishPoint.position.z));
         phantom.SetId(0);
+    }
+
+    void EndGame(string arg0, EventEndMidiEnum arg1)
+    {
+        Debug.Log("SongEnd");
+        statsManager.EndGame();
     }
 
     void NotesToPlay(List<MPTKEvent> mptkEvents)
@@ -101,10 +115,10 @@ public class PracticeManager : MonoBehaviour
                         note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[0].position.y, finishPoint.position.z));
                         note.SetId(51);
                         break;
-                    case 44://HiHat Closed
-                        note = Instantiate(quarter, startingPoint[1]).GetComponent<NoteBehavior>();
+                    case 44://HiHat Floor
+                        note = Instantiate(quarter, startingPoint[7]).GetComponent<NoteBehavior>();
                         note.SetImage("cross");
-                        note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[1].position.y, finishPoint.position.z));
+                        note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[7].position.y, finishPoint.position.z));
                         note.SetId(44);
                         break;
                     case 46://HiHat Open
@@ -113,10 +127,10 @@ public class PracticeManager : MonoBehaviour
                         note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[1].position.y, finishPoint.position.z));
                         note.SetId(46);
                         break;
-                    case 42://HiHat Foot
-                        note = Instantiate(quarter, startingPoint[7]).GetComponent<NoteBehavior>();
+                    case 42://HiHat Closed
+                        note = Instantiate(quarter, startingPoint[1]).GetComponent<NoteBehavior>();
                         note.SetImage("cross");
-                        note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[7].position.y, finishPoint.position.z));
+                        note.SetPosition(new Vector3(finishPoint.position.x, startingPoint[1].position.y, finishPoint.position.z));
                         note.SetId(42);
                         break;
                     default:

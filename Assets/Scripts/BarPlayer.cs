@@ -16,9 +16,10 @@ public class BarPlayer : MonoBehaviour
             {
                 if (n.GetId() == note)
                 {
+                    notes.Remove(n);
+                    n.SetRight(true);
                     statsManager.AddHitNote();
                     barPerformance.Plus();
-                    notes.Remove(n);
                     Destroy(n.gameObject);
                 }
                 break;
@@ -39,9 +40,12 @@ public class BarPlayer : MonoBehaviour
 
         if (notes.Contains(note))
         {
-            statsManager.AddMissedNote();
-            barPerformance.Minus();
-            notes.Remove(note);
+            if (!note.GetRight())
+            {
+                statsManager.AddMissedNote();
+                barPerformance.Minus();
+                notes.Remove(note);
+            }
         }
     }
 }

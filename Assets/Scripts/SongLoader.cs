@@ -8,6 +8,7 @@ public class SongLoader : MonoBehaviour
     [SerializeField] SectionContainer container;
     [SerializeField] Transform listPanel;
     [SerializeField] TMP_Text songTitle;
+    [SerializeField] TMP_Text bandTitle;
     [SerializeField] List<SectionContainer> sectionsList;
     SongInfo song;
     int currentIndex;
@@ -18,7 +19,9 @@ public class SongLoader : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
-        songTitle.text = gameManager.GetSong();
+        SongInfo songInfo = gameManager.GetSongInfo();
+        songTitle.text = songInfo.title;
+        bandTitle.text = songInfo.band;
         currentIndex = 0;
         LoadStructure();
         initialPosition = listPanel.transform.position;
