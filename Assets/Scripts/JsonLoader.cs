@@ -17,7 +17,14 @@ public class JsonLoader : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.GetInstance();
-        songAmmount = UserManager.GetInstance().GetUserStats().songs.Count;
+        if(UserManager.GetInstance().GetUserStats() != null)
+        {
+            songAmmount = UserManager.GetInstance().GetUserStats().songs.Count;
+        }
+        else
+        {
+            songAmmount = 99;
+        }
         LoadList();
     }
 

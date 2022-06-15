@@ -4,15 +4,19 @@ using MidiPlayerTK;
 
 public class BarDetector : MonoBehaviour
 {
-    
+    GameManager gameManager;
+    PracticeManager practiceManager;
+    bool paused;
     List<NoteBehavior> notes = new List<NoteBehavior>();
+    [SerializeField] List<Transform> startingPoint;
     [SerializeField] StatisticsManager statsManager;
     [SerializeField] MidiFilePlayer midiPlayer;
-    GameManager gameManager;
-    bool paused;
+    [SerializeField] GameObject quarter;
+    [SerializeField] Transform finishPoint;
 
     private void Start()
     {
+        practiceManager = FindObjectOfType<PracticeManager>();
         gameManager = GameManager.GetInstance();
         midiPlayer.MPTK_MidiName = gameManager.GetSong();
     }
@@ -25,9 +29,10 @@ public class BarDetector : MonoBehaviour
                 foreach (NoteBehavior n in notes)
             {
                 if(n.GetId() == note) {
+                    Debug.Log("HIT" + note);
                     statsManager.AddHitNote();
-                    notes.Remove(n);
-                    Destroy(n.gameObject);
+                    n.SetRight(true);
+                    n.SetImage(n.GetNote() + "_right");
                 }
                 break;
             }
@@ -65,8 +70,11 @@ public class BarDetector : MonoBehaviour
 
         if (notes.Contains(note))
         {
-            statsManager.AddMissedNote();
-            notes.Remove(note);
+            if (!note.GetRight())
+            {
+                note.SetImage(note.GetNote() + "_wrong");
+                statsManager.AddMissedNote();
+            }
         }
     }
 }

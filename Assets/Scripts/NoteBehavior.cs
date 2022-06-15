@@ -6,6 +6,8 @@ public class NoteBehavior : MonoBehaviour
 {
     int id;
     bool stop;
+    bool right;
+    string note;
     [SerializeField] List<Sprite> images;
     Vector3 finalPosition;
     GameManager gameManager;
@@ -13,6 +15,7 @@ public class NoteBehavior : MonoBehaviour
 
     void Start()
     {
+        right = false;
         gameManager = GameManager.GetInstance();
         tempo = int.Parse(gameManager.GetSongInfo().tempo);
     }
@@ -48,18 +51,55 @@ public class NoteBehavior : MonoBehaviour
         switch (name)
         {
             case "quarter":
+                note = "quarter";
                 image.sprite = images[0];
                 break;
             case "cross":
+                note = "cross";
                 image.sprite = images[1];
                 break;
             case "circle":
+                note = "circle";
                 image.sprite = images[2];
                 break;
             case "star":
+                note = "star";
                 image.sprite = images[3];
                 break;
+            case "quarter_right":
+                note = "quarter_right";
+                image.sprite = images[4];
+                break;
+            case "cross_right":
+                note = "cross_right";
+                image.sprite = images[5];
+                break;
+            case "circle_right":
+                note = "circle_right";
+                image.sprite = images[6];
+                break;
+            case "star_right":
+                note = "star_right";
+                image.sprite = images[7];
+                break;
+            case "quarter_wrong":
+                note = "quarter_wrong";
+                image.sprite = images[8];
+                break;
+            case "cross_wrong":
+                note = "cross_wrong";
+                image.sprite = images[9];
+                break;
+            case "circle_wrong":
+                note = "circle_wrong";
+                image.sprite = images[10];
+                break;
+            case "star_wrong":
+                note = "star_wrong";
+                image.sprite = images[11];
+                break;
             case "phantom":
+                note = "phantom";
                 image.color = new Color(255f, 255f, 255f,0f);
                 break;
         }
@@ -78,5 +118,21 @@ public class NoteBehavior : MonoBehaviour
     public void SetStop( bool value)
     {
         stop = value;
+    }
+    public string GetNote()
+    {
+        return note;
+    }
+    public Transform GetPosition()
+    {
+        return transform;
+    }
+    public bool GetRight()
+    {
+        return right;
+    }
+    public void SetRight(bool value)
+    {
+        right = value;
     }
 }

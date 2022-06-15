@@ -6,6 +6,7 @@ public class BarPlayer : MonoBehaviour
 
     List<NoteBehavior> notes = new List<NoteBehavior>();
     [SerializeField] StatisticsManager statsManager;
+    [SerializeField] BarPerformance barPerformance;
 
     public void HitNote(int note)
     {
@@ -16,6 +17,7 @@ public class BarPlayer : MonoBehaviour
                 if (n.GetId() == note)
                 {
                     statsManager.AddHitNote();
+                    barPerformance.Plus();
                     notes.Remove(n);
                     Destroy(n.gameObject);
                 }
@@ -38,6 +40,7 @@ public class BarPlayer : MonoBehaviour
         if (notes.Contains(note))
         {
             statsManager.AddMissedNote();
+            barPerformance.Minus();
             notes.Remove(note);
         }
     }
