@@ -22,7 +22,7 @@ public class DownloadLoader : MonoBehaviour
 
     void LoadList(GetSongInfoList list)
     {
-        string[] songs = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB", "*.bytes");
+        string[] songs = Directory.GetFiles($"{Application.persistentDataPath}/MidiDB", "*.bytes");
         foreach (string s in songs)
         {
             string[] path = s.Split('/');

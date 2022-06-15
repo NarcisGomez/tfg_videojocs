@@ -32,7 +32,7 @@ public class DownloadHandler : MonoBehaviour
         GetSong url = processData(response);
         WebClient web = new WebClient();
         web.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadFileCompleted);
-        web.DownloadFileAsync(new Uri(url.getSong), $"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB/{song}.bytes");
+        web.DownloadFileAsync(new Uri(url.getSong), $"{Application.persistentDataPath}/MidiDB/{song}.bytes");//$"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB/{song}.bytes");
 
     }
 
@@ -61,6 +61,6 @@ public class DownloadHandler : MonoBehaviour
     {
         SongInfo song = GameManager.GetInstance().GetSongInfo();
         string songString = JsonUtility.ToJson(song);
-        File.WriteAllText($"{Directory.GetCurrentDirectory()}/Assets/Resources/JSONFiles/{song.band} - {song.title}.json", songString);
+        File.WriteAllText($"{Application.persistentDataPath}/JSONFiles/{song.band} - {song.title}.json", songString);
     }
 }

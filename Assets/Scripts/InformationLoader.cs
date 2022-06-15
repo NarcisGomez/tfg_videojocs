@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using SimpleGraphQL;
+using System.IO;
 
 public class InformationLoader : MonoBehaviour
 {
@@ -47,8 +48,9 @@ public class InformationLoader : MonoBehaviour
 
     public void ProcessFile(string name)
     {
-        TextAsset item = Resources.Load<TextAsset>($"JSONFiles/{name}");
-        SongInfo file = JsonUtility.FromJson<SongInfo>(item.ToString());
+        Debug.Log($"Name: {name}");
+        string item = File.ReadAllText($"{Application.persistentDataPath}/JSONFiles/{name}.json");
+        SongInfo file = JsonUtility.FromJson<SongInfo>(item);
         LoadInformation(file);
     }
 

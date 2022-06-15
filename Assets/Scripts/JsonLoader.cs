@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -29,7 +30,9 @@ public class JsonLoader : MonoBehaviour
 
     public void LoadList()
     {
-        string[] list = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Assets/MidiPlayer/Resources/MidiDB", "*.bytes");
+        Debug.Log(Application.persistentDataPath);
+        string[] list = Directory.GetFiles($"{Application.persistentDataPath}/MidiDB", "*.bytes");
+        Debug.Log($"Lista: {string.Join(", ", list)}");
         foreach (Transform c in listPanel.transform)
         {
             Destroy(c.gameObject);
@@ -37,6 +40,7 @@ public class JsonLoader : MonoBehaviour
         for(int i = 0; i < list.Length; i++)
         {
             string[] path = list[i].Split('/');
+            path = path[path.Length - 1].Split('\\');
             string file = path[path.Length - 1].Split('.')[0];
             Button b = Instantiate<Button>(button);
             

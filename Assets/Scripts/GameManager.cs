@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,10 +23,41 @@ public class GameManager : MonoBehaviour
     {
         tempoMultiplier = 1;
         instrument = "Drums";
-        if (instance != null) Destroy(gameObject);
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         else instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+        Debug.Log($"MidiDB exists: {Directory.Exists($"{Application.persistentDataPath}\\MidiDB")} {string.Join(" ", Directory.EnumerateDirectories(Application.persistentDataPath))}");
+        if (Directory.Exists($"{Application.persistentDataPath}\\MidiDB") == false)
+        {   
+            Debug.Log($"Creating folder MidiDB into {Application.persistentDataPath}");
+            Directory.CreateDirectory($"{Application.persistentDataPath}\\MidiDB");
+            Debug.Log("Copy all the json to MidiDB");
+            TextAsset[] midiFiles = Resources.LoadAll<TextAsset>("MidiDB");
+            foreach(TextAsset ta in midiFiles)
+            {
+                File.WriteAllBytes($"{Application.persistentDataPath}/MidiDB/{ta.name}.bytes", ta.bytes);
+            }
+        }
+
+        Debug.Log($"JSONFiles exists: {Directory.Exists($"{Application.persistentDataPath}\\JSONFiles")} {string.Join(" ", Directory.EnumerateDirectories(Application.persistentDataPath))}");
+        if (Directory.Exists($"{Application.persistentDataPath}\\JSONFiles") == false)
+        {
+            Debug.Log($"Creating folder JSONFiles into {Application.persistentDataPath}");
+            Directory.CreateDirectory($"{Application.persistentDataPath}\\JSONFiles");
+            Debug.Log("Copy all the json to JSONFiles");
+            TextAsset[] jsonFiles = Resources.LoadAll<TextAsset>("JSONFiles");
+            foreach (TextAsset ta in jsonFiles)
+            {
+                File.WriteAllBytes($"{Application.persistentDataPath}/JSONFiles/{ta.name}.json", ta.bytes);
+            }
+        }
+
     }
     public void SetSong(string song)
     {
